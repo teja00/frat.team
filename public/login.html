@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign-in to FRAT</title>
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css" />
+  <link rel="stylesheet" href="./styles/loginStyle.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+  <!-- update the version number as needed -->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <script src="./scripts/anime.min.js"></script>
+
+</head>
+
+<body>
+  <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+
+    <main class="mdl-layout__content">
+      <div class="page">
+        <div class="container">
+          <div class="left">
+            <div class="login">FRAT</div>
+            <div class="eula"><b>Features:</b>
+              <ul>
+                <li>Create 3D classrooms</li>
+                <li>Manage quiz forms to conduct them during classes</li>
+                <li>Track attendance collected from our ML models</li>
+              </ul>
+              <br>
+            </div>
+          </div>
+          <div class="right" id="firebaseui-auth-container">
+            <div id="loader">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/__/firebase/7.17.1/firebase-app.js"></script>
+  <script src="/__/firebase/7.17.1/firebase-auth.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <script type="text/javascript">
+    fetch('/__/firebase/init.json').then(async response => {
+      var iniOb = await response.json()
+      iniOb.authDomain = "frat.team"
+      console.log(iniOb)
+      firebase.initializeApp(iniOb);
+    }).then(() => {
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      var uiConfig = {
+        callbacks: {
+          signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+            document.getElementById("loader").style.display = "block";
+
+            console.log("auth completed")
+            //alert("Hello")
+            fetch(
+              "https://asia-south1-fir-rtc-926a7.cloudfunctions.net/widgets/signup",
+              {
+                method: "POST", // or 'PUT'
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(authResult.additionalUserInfo),
+              }
+            )
+              .then(response => response.json())
+              .then(data => {
+                console.log(data)
+                if (localStorage.redirectLink === undefined) {
+                  window.location.replace("/console.html");
+                } else {
+                  var re = localStorage.redirectLink
+                  window.location.replace(re);
+                }
+              }
+
+              ).catch((error) => {
+                alert("Error: Creating account - Contact us");
+                window.location.replace("/404.html");
+
+              });
+            console.log("holy error")
+            return false;
+          },
+          uiShown: function () {
+            document.getElementById("loader").style.display = "none";
+          },
+        },
+        signInFlow: "redirect",
+        signInSuccessUrl: "<url-to-redirect-to-on-success>",
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          {
+            provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // Required to enable ID token "credentials" for this provider.
+          },
+        ],
+        // Terms of service url.
+        tosUrl: "<your-tos-url>",
+        // Privacy policy url.
+        privacyPolicyUrl: "<your-privacy-policy-url>",
+      };
+
+      ui.start("#firebaseui-auth-container", uiConfig);
+    })
+  </script>
+</body>
+
+</html>

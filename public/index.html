@@ -1,79 +1,217 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to FirebaseRTC</title>
-    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FRAT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+  <!-- update the version number as needed -->
+  <script src="./scripts/anime.min.js"></script>
+  <style>
+    html,
+    body {
+      background-color: #F6F4F2;
+      color: #252423;
+    }
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.13.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.13.1/firebase-firestore.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+    }
 
-    <link rel="stylesheet" type="text/css" href="main.css">
+    .animation-wrapper {
+      width: 80%;
+      padding-bottom: 40%;
+    }
+
+    .stagger-visualizer {
+      position: absolute;
+      width: 1100px;
+      height: 550px;
+      transform-origin: left top;
+    }
+
+    .stagger-visualizer .dots-wrapper {
+      transform: translateZ(0);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stagger-visualizer .dot {
+      position: relative;
+      z-index: 1;
+      width: 23px;
+      height: 23px;
+      margin: 16px;
+      background-color: currentColor;
+      border-radius: 50%;
+    }
+
+    @media (min-width: 740px) {
+      .stagger-visualizer .dot {
+        background-color: transparent;
+        background-image: linear-gradient(180deg, #FFFFFF 8%, #D3CDC6 100%);
+      }
+    }
+
+    .stagger-visualizer .cursor {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 37px;
+      height: 37px;
+      margin: 9px;
+      background-color: currentColor;
+      border-radius: 50%;
+    }
+
+    .button-success,
+    .button-error,
+    .button-warning,
+    .button-secondary {
+      color: white;
+      border-radius: 4px;
+    }
+
+    .button-success {
+      background: orange;
+      font-size: xx-large;
+
+      /* this is a green */
+    }
+  </style>
 </head>
+
 <body>
-<h1>Welcome to FirebaseRTC!</h1>
-<div id="buttons">
-    <button class="mdc-button mdc-button--raised" id="cameraBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">perm_camera_mic</i>
-        <span class="mdc-button__label">Open camera & microphone</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="createBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group_add</i>
-        <span class="mdc-button__label">Create room</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="joinBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">group</i>
-        <span class="mdc-button__label">Join room</span>
-    </button>
-    <button class="mdc-button mdc-button--raised" disabled id="hangupBtn">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">close</i>
-        <span class="mdc-button__label">Hangup</span>
-    </button>
-</div>
-<div>
-    <span id="currentRoom"></span>
-</div>
-<div id="videos">
-    <video id="localVideo" muted autoplay playsinline></video>
-    <video id="remoteVideo" autoplay playsinline></video>
-</div>
-<div class="mdc-dialog"
-     id="room-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface">
-            <h2 class="mdc-dialog__title" id="my-dialog-title">Join room</h2>
-            <div class="mdc-dialog__content" id="my-dialog-content">
-                Enter ID for room to join:
-                <div class="mdc-text-field">
-                    <input type="text" id="room-id" class="mdc-text-field__input">
-                    <label class="mdc-floating-label" for="my-text-field">Room ID</label>
-                    <div class="mdc-line-ripple"></div>
-                </div>
-            </div>
-            <footer class="mdc-dialog__actions">
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
-                    <span class="mdc-button__label">Cancel</span>
-                </button>
-                <button id="confirmJoinBtn" type="button" class="mdc-button mdc-dialog__button"
-                        data-mdc-dialog-action="yes">
-                    <span class="mdc-button__label">Join</span>
-                </button>
-            </footer>
-        </div>
+  <div class="animation-wrapper">
+    <div class="stagger-visualizer">
+      <div class="cursor color-red"></div>
+      <div class="dots-wrapper"></div>
     </div>
-    <div class="mdc-dialog__scrim"></div>
-</div>
-<script src="app.js"></script>
+  </div>
+  <div style="font-family: 'Bungee Inline',Arial;position: fixed;top: 20%;font-size:500%;color: indigo;">FRAT</div>
+  <div style="font-family: 'Bungee Inline',Arial;position: fixed;top: 45%;color: indigo;background: rgba(255,255,255,.5);text-align: center;">
+    <h4>World's first 3D virtual classroom with smart attendance, on the fly quizzes and shared whiteboard.<br><u>
+      All for free!
+    </u></h4><br><br><button class="button-success pure-button" onclick="window.location.href='/login.html';">Get started</button>
+  </div>
+  <script type="text/javascript">
+    function fitElementToParent(el, padding) {
+      var timeout = null;
+      function resize() {
+        if (timeout) clearTimeout(timeout);
+        anime.set(el, { scale: 1 });
+        var pad = padding || 0;
+        var parentEl = el.parentNode;
+        var elOffsetWidth = el.offsetWidth - pad;
+        var parentOffsetWidth = parentEl.offsetWidth;
+        var ratio = parentOffsetWidth / elOffsetWidth;
+        timeout = setTimeout(anime.set(el, { scale: ratio }), 10);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+    }
+
+    var advancedStaggeringAnimation = (function () {
+
+      var staggerVisualizerEl = document.querySelector('.stagger-visualizer');
+      var dotsWrapperEl = staggerVisualizerEl.querySelector('.dots-wrapper');
+      var dotsFragment = document.createDocumentFragment();
+      var grid = [20, 10];
+      var cell = 55;
+      var numberOfElements = grid[0] * grid[1];
+      var animation;
+      var paused = true;
+
+      fitElementToParent(staggerVisualizerEl, 0);
+
+      for (var i = 0; i < numberOfElements; i++) {
+        var dotEl = document.createElement('div');
+        dotEl.classList.add('dot');
+        dotsFragment.appendChild(dotEl);
+      }
+
+      dotsWrapperEl.appendChild(dotsFragment);
+
+      var index = anime.random(0, numberOfElements - 1);
+      var nextIndex = 0;
+
+      anime.set('.stagger-visualizer .cursor', {
+        translateX: anime.stagger(-cell, { grid: grid, from: index, axis: 'x' }),
+        translateY: anime.stagger(-cell, { grid: grid, from: index, axis: 'y' }),
+        translateZ: 0,
+        scale: 1.5,
+      });
+
+      function play() {
+
+        paused = false;
+        if (animation) animation.pause();
+
+        nextIndex = anime.random(0, numberOfElements - 1);
+
+        animation = anime.timeline({
+          easing: 'easeInOutQuad',
+          complete: play
+        })
+          .add({
+            targets: '.stagger-visualizer .cursor',
+            keyframes: [
+              { scale: .75, duration: 120 },
+              { scale: 2.5, duration: 220 },
+              { scale: 1.5, duration: 450 },
+            ],
+            duration: 300
+          })
+          .add({
+            targets: '.stagger-visualizer .dot',
+            keyframes: [
+              {
+                translateX: anime.stagger('-2px', { grid: grid, from: index, axis: 'x' }),
+                translateY: anime.stagger('-2px', { grid: grid, from: index, axis: 'y' }),
+                duration: 100
+              }, {
+                translateX: anime.stagger('4px', { grid: grid, from: index, axis: 'x' }),
+                translateY: anime.stagger('4px', { grid: grid, from: index, axis: 'y' }),
+                scale: anime.stagger([2.6, 1], { grid: grid, from: index }),
+                duration: 225
+              }, {
+                translateX: 0,
+                translateY: 0,
+                scale: 1,
+                duration: 1200,
+              }
+            ],
+            delay: anime.stagger(80, { grid: grid, from: index })
+          }, 30)
+          .add({
+            targets: '.stagger-visualizer .cursor',
+            translateX: { value: anime.stagger(-cell, { grid: grid, from: nextIndex, axis: 'x' }) },
+            translateY: { value: anime.stagger(-cell, { grid: grid, from: nextIndex, axis: 'y' }) },
+            scale: 1.5,
+            easing: 'cubicBezier(.075, .2, .165, 1)'
+          }, '-=800')
+
+        index = nextIndex;
+
+      }
+
+      play();
+
+    })();
+  </script>
 </body>
+
 </html>

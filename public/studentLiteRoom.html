@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FRAT</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css" />
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/trStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<style>
+    body {
+        background: #ECEFF1;
+        color: rgba(0, 0, 0, 0.87);
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
+    }
+
+    .mdl-layout-title {
+        font-family: "Bungee Inline", Helvetica, Arial, sans-serif;
+
+    }
+
+    .overlay {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    .viewSource {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        display: none;
+        margin-left: 40px;
+        margin-bottom: 40px;
+        z-index: 900;
+    }
+</style>
+
+<body>
+    <!-- Simple header with fixed tabs. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+mdl-layout--fixed-tabs">
+        <header class="mdl-layout__header" id="head">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">FRAT</span>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Video</a>
+                <a href="#fixed-tab-2" class="mdl-layout__tab">Board</a>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">FRAT</span>
+        </div>
+        <main class="mdl-layout__content">
+            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                <div class="page-content" id="meet">
+                    <!-- Your content goes here -->
+                </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+                <div class="page-content">
+                    <div id="whiteboard"></div>
+                    <div class="overlay" id="overlay"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <a target="_blank" id="view-source"
+        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white viewSource"
+        onclick="hideQuizButton()">Quiz</a>
+    <video id="player" controls autoplay style="display: none;"></video>
+    <canvas id="canvas" width=320 height=240 style="display: none;"></canvas>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+<script src='https://meet.jit.si/external_api.js'></script>
+<script src="/__/firebase/7.17.1/firebase-app.js"></script>
+<script src="/__/firebase/7.17.1/firebase-firestore.js"></script>
+<script src="/__/firebase/7.17.1/firebase-auth.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script>
+    var USER_CRED, quizFormBit, attIntervalListener
+    var reloadBit = "none"
+    var db = firebase.firestore();
+    const player = document.getElementById('player');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    //ctx = canvas.getContext('2d');
+    //ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+    const constraints = {
+        video: true,
+    };
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            USER_CRED = user;
+            //alert("hey guy")
+            api.executeCommand('displayName', localStorage.getItem("username"));
+            //email = user.email;
+            //photoUrl = user.photoURL;;
+
+
+        } else {
+            //alert("Dwight, get out of my nook")
+            window.location.replace("/join.html");
+        }
+    });
+    if (localStorage.getItem("roomID") == null) {
+        window.location.replace("/join.html");
+    }
+    /*
+    window.addEventListener('beforeunload', function (e) {
+        localStorage.removeItem("roomID");
+        localStorage.removeItem("className");
+        localStorage.removeItem("jitsi");
+        localStorage.removeItem("whiteboard");
+        localStorage.removeItem("username");
+        localStorage.removeItem("roll");
+        e.preventDefault();
+        e.returnValue = '';
+    });*/
+    //FIX THIS
+    var clientHeight = document.documentElement.scrollHeight - 100;
+    document.getElementById("view-source").style.display = "none"
+    db.collection("rooms").doc(localStorage.getItem("roomID"))
+        .onSnapshot(function (snapshot) {
+            console.log("|||||||||||||||||||||||||||||||||||||||||||||||||", snapshot.data())
+            //quizFormBit
+            try {
+                var form = snapshot.data().quizForm
+                console.log("try", form)
+                if (form === undefined) {
+                    document.getElementById("view-source").style.display = "none"
+                } else {
+                    document.getElementById("view-source").href = form
+                    document.getElementById("view-source").style.display = "block"
+                }
+            } catch (e) {
+                console.log("not yet form")
+            }
+            try {
+                var startClass = snapshot.data().startClass
+                if (startClass === false) {
+                    console.log("class not started")
+                    if (reloadBit === "none") {
+
+                    }
+                    if (reloadBit === true) {
+                        var uName = Math.floor(Math.random() * 10000).toString();
+
+                        console.log("Sending in attendance", localStorage.att, localStorage.getItem("roomID"))
+                        db.collection("rooms")
+                            .doc(localStorage.getItem("roomID"))
+                            .collection("meta")
+                            .doc("attendance")
+                            .set(
+                                {
+                                    [uName]: { username: localStorage.getItem("username"), roll: localStorage.getItem("roll"), att: localStorage.att },
+                                },
+                                { merge: true }
+                            )
+                            .then(function () {
+                                console.log("db success")
+                                localStorage.att = 0;
+                            })
+                            .catch(function (error) {
+                                console.error("Error writing document: ", error);
+                                res.send({ status: 2 });
+                            });
+                        window.clearInterval(attIntervalListener)
+
+                    }
+                } else if (startClass === true) {
+                    reloadBit = true
+                    attIntervalListener = setInterval(smartAttendance, 3000);
+
+                    //document.getElementById("view-source1").style.display = "none"
+                    //document.getElementById("view-source2").style.display = "block"
+                }
+            } catch (e) {
+                console.log("not yet")
+            }
+        });
+
+    const domain = 'meet.jit.si';
+    const options = {
+        roomName: localStorage.getItem("jitsi"),
+        height: clientHeight,
+        parentNode: document.querySelector('#meet'),
+        configOverwrite: { startWithAudioMuted: true, disableDeepLinking: true },
+        interfaceConfigOverwrite: {
+            TOOLBAR_BUTTONS: [
+                'microphone', 'closedcaptions', 'fullscreen',
+                'fodeviceselection', 'profile', 'chat', 'settings', 'raisehand',
+                'videoquality'
+            ],
+            DEFAULT_BACKGROUND: 'white',
+            SHOW_JITSI_WATERMARK: false,
+            JITSI_WATERMARK_LINK: 'https://frat.team',
+            MOBILE_APP_PROMO: false, HIDE_INVITE_MORE_HEADER: true, SHOW_CHROME_EXTENSION_BANNER: false,
+            SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            DEFAULT_REMOTE_DISPLAY_NAME: 'Student', DISPLAY_WELCOME_PAGE_CONTENT: false, ENABLE_DIAL_OUT: false,
+
+        },
+    };
+    const api = new JitsiMeetExternalAPI(domain, options);
+    document.getElementById('jitsiConferenceFrame0').allow = "microphone"
+    //document.getElementById('jitsiConferenceFrame0').style.overflow = "none"
+    var d1 = document.getElementById("whiteboard");
+    d1.insertAdjacentHTML(
+        "beforeend", '<iframe id="wbo" height="' + clientHeight + '" src="https://wbo.ophir.dev/boards/' + localStorage.getItem("whiteboard") + '" title="whiteboard">')
+    document.getElementById("wbo").seamless = true;
+    function conductQuizFunction() {
+        var x = document.getElementById("professsion").value;
+        var cityRef = db.collection("rooms").doc(localStorage.getItem("roomID"));
+        var setWithMerge = cityRef.set({
+            quizForm: x
+        }, { merge: true });
+
+    }
+    /*
+    document.getElementById('jitsiConferenceFrame0').onload = function() {
+    // just do anything
+    var iframe = document.getElementById('jitsiConferenceFrame0');
+var innerDoc = iframe.contentWindow.document;
+var test =  $( "button:contains('Launch in web')" );
+
+if(test != undefined) {
+    alert('Exists');
+    test.click()
+
+}else{
+
+    alert('Do no Exists');
+}
+  };*/
+    setTimeout(function () {
+        document.getElementById("overlay").style.width = "35%";
+        document.getElementById("overlay").style.height = "100%";
+        console.log("Overlay enabled", document.getElementById("overlay").style.width, document.getElementById("whiteboard").style.width)
+    }, 7000)
+
+    function hideQuizButton() {
+        document.getElementById("view-source").style.display = "none"
+    }
+    function smartAttendance() {
+        console.log("7777777777777777777777777777777777777777777777777777777")
+        // Draw the video frame to the canvas.
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+        main();
+    }
+    // Attach the video stream to the video element and autoplay.
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+            player.srcObject = stream;
+        }).catch(e=>{
+            console.log("Can't access camera bro")
+        });
+    async function main() {
+        // Load the model.
+        const model = await blazeface.load();
+
+        // Pass in an image or video to the model. The model returns an array of
+        // bounding boxes, probabilities, and landmarks, one for each detected face.
+
+        const returnTensors = false; // Pass in `true` to get tensors back, rather than values.
+        const predictions = await model.estimateFaces(document.getElementById('canvas'), returnTensors);
+
+        if (predictions.length > 0) {
+            if (document.visibilityState == "visible") {
+                localStorage.att = Number(localStorage.att) + 1;
+            }
+            console.log(localStorage.att, "predictions")
+            /*
+            `predictions` is an array of objects describing each detected face, for example:
+        
+            [
+              {
+                topLeft: [232.28, 145.26],
+                bottomRight: [449.75, 308.36],
+                probability: [0.998],
+                landmarks: [
+                  [295.13, 177.64], // right eye
+                  [382.32, 175.56], // left eye
+                  [341.18, 205.03], // nose
+                  [345.12, 250.61], // mouth
+                  [252.76, 211.37], // right ear
+                  [431.20, 204.93] // left ear
+                ]
+              }
+            ]
+            for (let i = 0; i < predictions.length; i++) {
+                const start = predictions[i].topLeft;
+                const end = predictions[i].bottomRight;
+                const size = [end[0] - start[0], end[1] - start[1]];
+                console.log("pred", start, end, size)
+                // Render a rectangle over each detected face.
+                //ctx.fillRect(start[0], start[1], size[0], size[1]);
+            }*/
+        }
+    }
+</script>
+
+</html>
