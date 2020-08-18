@@ -144,7 +144,13 @@ document.getElementById("submit").addEventListener("click", function () {
               document.getElementById("demo-show-snackbar").click();
             }
           } else if (type === "t") {
-            if (data.teacher === "none" || data.teacher === emailCheck) {
+            console.log("TTTTTTTTTTTTTTTTTTTTTTT", data.teacher);
+            if (
+              data.teacher === "none" ||
+              data.teacher === emailCheck ||
+              data.teacher === none
+            ) {
+              console.log("LLLLLLLLLLLLLLLLLLLLL")
               window.location.replace("/teacherRoom.html");
             } else {
               errorSnack =
