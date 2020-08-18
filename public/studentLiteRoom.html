@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="./styles/trStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 <style>
     body {
@@ -50,37 +53,45 @@
 
 <body>
     <!-- Simple header with fixed tabs. -->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-mdl-layout--fixed-tabs">
-        <header class="mdl-layout__header" id="head">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title">FRAT</span>
-            </div>
-            <!-- Tabs -->
-            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Video</a>
-                <a href="#fixed-tab-2" class="mdl-layout__tab">Board</a>
-            </div>
-        </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">FRAT</span>
-        </div>
-        <main class="mdl-layout__content">
-            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-                <div class="page-content" id="meet">
-                    <!-- Your content goes here -->
+    <div class="ct" id="t1">
+        <div class="ct" id="t2">
+          <div class="ct" id="t3">
+            <div class="ct" id="t4">
+              <div class="ct" id="t5">
+                <ul id="menu">
+                    <a href="#t1">
+                        <li class="icon fa fa-home fa-2x" id="uno"></li>
+                    </a>
+                    <a href="#t2">
+                        <li class="icon fa fa-video-camera fa-2x" id="dos"></li>
+                    </a>
+                    <a href="#t3">
+                        <li class="icon fa fa-square fa-2x" id="tres"></li>
+                    </a>
+                </ul>
+                <div class="page" id="p1">
+                    <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">India's
+                            first 3D virtual classroom <br> with smart attendance, on the fly quizzes and shared
+                            whiteboard</span></section>
                 </div>
-            </section>
-            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-                <div class="page-content">
-                    <div id="whiteboard"></div>
+                <div class="page mdl-grid" id="p2">
+                    <div id="meet"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                style="padding: 0%;margin: 0%;"></div>
+                        </div>
+                </div>
+                <div class="page mdl-grid" id="p3">
+                    <div id="whiteboard"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                style="padding: 0%;margin: 0%;"></div>
                     <div class="overlay" id="overlay"></div>
-                </div>
-            </section>
 
-        </main>
-    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <a target="_blank" id="view-source"
         class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white viewSource"
         onclick="hideQuizButton()">Quiz</a>
@@ -136,7 +147,8 @@ mdl-layout--fixed-tabs">
         e.returnValue = '';
     });*/
     //FIX THIS
-    var clientHeight = document.documentElement.scrollHeight - 100;
+    var clientHeight = document.documentElement.scrollHeight;
+
     document.getElementById("view-source").style.display = "none"
     db.collection("rooms").doc(localStorage.getItem("roomID"))
         .onSnapshot(function (snapshot) {
@@ -226,7 +238,6 @@ mdl-layout--fixed-tabs">
     var d1 = document.getElementById("whiteboard");
     d1.insertAdjacentHTML(
         "beforeend", '<iframe id="wbo" height="' + clientHeight + '" src="https://wbo.ophir.dev/boards/' + localStorage.getItem("whiteboard") + '" title="whiteboard">')
-    document.getElementById("wbo").seamless = true;
     function conductQuizFunction() {
         var x = document.getElementById("professsion").value;
         var cityRef = db.collection("rooms").doc(localStorage.getItem("roomID"));

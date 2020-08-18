@@ -27,10 +27,10 @@ html, body, .page {
   left: 200%;
 }
 
-#p1 { background: darkslateblue; }
+#p1 { background: indigo; }
 #p2 { background: tomato; }
-#p3 { background: gold; }
-#p4 { background: deeppink; }
+#p3 { background: white; }
+#p4 { background: indigo; }
 #p5 { background: rebeccapurple; }
 
 #t2:target #p2,
@@ -48,7 +48,7 @@ html, body, .page {
 #t3:target #p1,
 #t4:target #p1,
 #t5:target #p1{
-  background: black;
+  background: indigo;
 }
 
 #t2:target #p1 .icon, 

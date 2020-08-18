@@ -11,12 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./styles/trStyle.css">
     <link rel="stylesheet" href="./styles/normalize.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <style>
+        .title {
+            font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
+        }
+
         .box {
             width: 120px;
             height: 30px;
@@ -25,7 +28,6 @@
             color: indigo;
             background-color: orange;
             border-radius: 5px;
-            box-shadow: 4px 4px #ccc;
         }
 
         .viewSource {
@@ -36,9 +38,6 @@
             margin-left: 7px;
             margin-top: 7px;
             z-index: 900;
-        }
-        .pageSett{
-            padding-right: 10%;
         }
     </style>
 
@@ -65,15 +64,21 @@
                             </a>
                         </ul>
                         <div class="page" id="p1">
-                            <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">World's
+                            <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">India's
                                     first 3D virtual classroom <br> with smart attendance, on the fly quizzes and shared
-                                    whiteboard</span></section>
+                                    whiteboard<br><br><br><button class="box" onclick="leaveClassFunction()">Leave
+                                        class</button></span></section>
+
                         </div>
-                        <div class="page" id="p2">
-                            <div id="meet"></div>
+                        <div class="page mdl-grid" id="p2">
+                            <div id="meet"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                style="padding: 0%;margin: 0%;"></div>
                         </div>
-                        <div class="page" id="p3">
-                            <div id="whiteboard"></div>
+                        <div class="page mdl-grid" id="p3">
+                            <div id="whiteboard"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                style="padding: 0%;margin: 0%;"></div>
                         </div>
                         <div class="page pageSett" id="p4">
                             <section id="tejaFuckedUpID" style="display: none;">
@@ -84,13 +89,14 @@
                                     <h6>This may take a while.<br>You'll be redirected to download the excel sheet</h6>
                                 </div>
                                 <div class="mdl-grid" id="settingsPageContent">
-
-                                    <ul class="demo-list-control mdl-list mdl-cell mdl-cell--12-col">
-                                        <li class="mdl-list__item mdl-list__item--two-line">
+                                    <ul class="demo-list-control mdl-list mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                        style="padding: 0%;margin: 0%;">
+                                        <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
                                             <span class="mdl-list__item-primary-content">
                                                 <i class="material-icons  mdl-list__item-icon">fact_check</i>
                                                 <span>Conduct quiz</span>
-                                                <span class="mdl-list__item-sub-title">No new participants will be
+                                                <span class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">No
+                                                    new participants will be
                                                     allowed.</span>
                                             </span>
                                             <span class="mdl-list__item-secondary-action">
@@ -100,11 +106,12 @@
                                                 </select>
                                             </span>
                                         </li>
-                                        <li class="mdl-list__item mdl-list__item--two-line">
+                                        <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
                                             <span class="mdl-list__item-primary-content">
                                                 <i class="material-icons  mdl-list__item-icon">lock</i>
                                                 <span>Close room</span>
-                                                <span class="mdl-list__item-sub-title">No new participants will be
+                                                <span class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">No
+                                                    new participants will be
                                                     allowed.</span>
                                             </span>
                                             <span class="mdl-list__item-secondary-action">
@@ -115,12 +122,14 @@
                                                 </label>
                                             </span>
                                         </li>
-                                        <li class="mdl-list__item mdl-list__item--two-line">
+                                        <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
                                             <span class="mdl-list__item-primary-content">
                                                 <i
                                                     class="material-icons  mdl-list__item-icon">supervised_user_circle</i>
                                                 <span>Take attendance</span>
-                                                <span class="mdl-list__item-sub-title">Automatically give attendance
+                                                <span
+                                                    class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">Automatically
+                                                    give attendance
                                                     only to
                                                     students
                                                     who paid attention for at least 50% of the class</span>
@@ -333,6 +342,10 @@
 
         setTimeout(callAttendanceFirebaseFunction, 1000)
     }
+    function leaveClassFunction() {
+        window.location.replace("/console");
+
+    }
     function callAttendanceFirebaseFunction() {
         //http://localhost:5005/fir-rtc-926a7/us-central1/widgets
         var attObj = {
@@ -341,7 +354,9 @@
         }
         const linkToAtt = "https://asia-south1-fir-rtc-926a7.cloudfunctions.net/widgets/attendance?roomID=" + localStorage.roomID + "&displayName=" + USER_CRED.displayName
         window.open(linkToAtt)
-        window.location.replace("/console");
+
+        document.getElementById("settingsPageContent").style.display = "block"
+        document.getElementById("attLoadingScreen").style.display = "none"
 
         /*
         fetch(

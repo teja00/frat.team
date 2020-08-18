@@ -145,18 +145,11 @@ document.getElementById("submit").addEventListener("click", function () {
             }
           } else if (type === "t") {
             console.log("TTTTTTTTTTTTTTTTTTTTTTT", data.teacher);
-            if (
-              data.teacher === "none" ||
-              data.teacher === emailCheck ||
-              data.teacher === none
-            ) {
-              console.log("LLLLLLLLLLLLLLLLLLLLL")
-              window.location.replace("/teacherRoom.html");
-            } else {
-              errorSnack =
-                "Teacher is present. Wait till he/she leaves and try again.";
-              document.getElementById("demo-show-snackbar").click();
-            }
+            window.location.replace("/teacherRoom.html");
+
+            errorSnack =
+              "Teacher is present. Wait till he/she leaves and try again.";
+            document.getElementById("demo-show-snackbar").click();
           }
         } else {
           errorSnack = "Web storage not found. Please use Chrome.";
