@@ -5,7 +5,6 @@ const password = urlParams.get("password");
 var errorSnack = "";
 var emailCheck;
 firebase.auth().onAuthStateChanged(function (user) {
-  //try{localStorage.removeItem(re)}catch(e){console.log(".")}
   if (user) {
     // User is signed in.
     if (user.isAnonymous === true && type === "t") {
@@ -53,6 +52,13 @@ firebase.auth().onAuthStateChanged(function (user) {
   // ...
 });
 document.getElementById("submit").addEventListener("click", function () {
+  if (
+    document.getElementById("email").value === "" ||
+    document.getElementById("password").value === ""
+  ) {
+    //alert("Username and Roll required");
+    return;
+  }
   document.getElementById("submit").disabled = true;
   document.getElementById("actual").style.display = "none";
   document.getElementById("loadingActual").style.display = "block";
@@ -145,6 +151,12 @@ document.getElementById("submit").addEventListener("click", function () {
             }
           } else if (type === "t") {
             console.log("TTTTTTTTTTTTTTTTTTTTTTT", data.teacher);
+            try {
+              localStorage.removeItem("redirectLink");
+            } catch (e) {
+              console.log(".");
+            }
+
             window.location.replace("/teacherRoom.html");
 
             errorSnack =

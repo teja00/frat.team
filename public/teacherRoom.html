@@ -19,7 +19,6 @@
         .title {
             font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
         }
-
         .box {
             width: 120px;
             height: 30px;
@@ -60,7 +59,7 @@
                             <a href="#t3" onclick="tejaFuckedUp()">
                                 <li class="icon fa fa-square fa-2x" id="tres"></li>
                             </a><a href="#t4" onclick="tejaFuckedUpYes()">
-                                <li class="icon fa fa-cog fa-2x" id="tres"></li>
+                                <li class="icon fa fa-cog fa-2x" id="cuatro"></li>
                             </a>
                         </ul>
                         <div class="page" id="p1">
@@ -72,12 +71,12 @@
                         </div>
                         <div class="page mdl-grid" id="p2">
                             <div id="meet"
-                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
                                 style="padding: 0%;margin: 0%;"></div>
                         </div>
                         <div class="page mdl-grid" id="p3">
                             <div id="whiteboard"
-                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
                                 style="padding: 0%;margin: 0%;"></div>
                         </div>
                         <div class="page pageSett" id="p4">
@@ -89,7 +88,7 @@
                                     <h6>This may take a while.<br>You'll be redirected to download the excel sheet</h6>
                                 </div>
                                 <div class="mdl-grid" id="settingsPageContent">
-                                    <ul class="demo-list-control mdl-list mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone"
+                                    <ul class="demo-list-control mdl-list mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
                                         style="padding: 0%;margin: 0%;">
                                         <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
                                             <span class="mdl-list__item-primary-content">
@@ -215,6 +214,7 @@
                     document.getElementById("view-source2").style.display = "none"
                     document.getElementById("view-source1").style.display = "block"
                 } else if (startClass === true) {
+                    console.log("class started")
                     document.getElementById("view-source1").style.display = "none"
                     document.getElementById("view-source2").style.display = "block"
                 }
@@ -290,7 +290,7 @@
     document.getElementById("wbo").seamless = true;
     function conductQuizFunction() {
         var x = document.getElementById("professsion").value;
-        console.log("Quiz ", localStorage.getItem("roomID"))
+        console.log("Quiz ", x)
         var cityRef = db.collection("rooms").doc(localStorage.getItem("roomID"));
         var setWithMerge = cityRef.set({
             quizForm: x

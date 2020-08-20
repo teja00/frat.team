@@ -1,217 +1,243 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ⚡4ads>
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FRAT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/amp4ads-v0.js"></script>
+  <script src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp4ads-boilerplate>
+    body {
+      visibility: hidden
+    }
+  </style>
+  <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+  <!-- The AMP Story runtime is responsible for rendering the call to action button. 
+  The call to action button must be configured from a predefined set of [choices](https://www.ampproject.org/docs/ads/story_ads_best_practices). -->
+  <meta name="amp-cta-type" content="INSTALL">
+  <!-- amp-cta-url specifies where the user is directed once clicking upon the call to action button. -->
+  <meta name="amp-cta-url" content="https://frat.team">
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
-  <!-- update the version number as needed -->
-  <script src="./scripts/anime.min.js"></script>
-  <style>
-    html,
-    body {
-      background-color: #F6F4F2;
-      color: #252423;
+
+  <style amp-custom>
+    @font-face {
+      font-family: "Poppins";
+      font-weight: 700;
+      src: url("https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2");
     }
 
-    body {
-      display: flex;
-      justify-content: center;
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
       align-items: center;
-      position: absolute;
-      width: 100%;
+      background-color: #FDC629;
+      display: flex;
+      flex-direction: column;
       height: 100vh;
+      justify-content: flex-end;
+      width: 100vw;
+      
     }
 
-    .animation-wrapper {
-      width: 80%;
-      padding-bottom: 40%;
+    .logo {
+      border-radius: 1.5vh;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+      height: 10vh;
+      margin-bottom: 3vh;
+      width: 10vh;
     }
 
-    .stagger-visualizer {
-      position: absolute;
-      width: 1100px;
-      height: 550px;
-      transform-origin: left top;
-    }
-
-    .stagger-visualizer .dots-wrapper {
-      transform: translateZ(0);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .stagger-visualizer .dot {
+    .text-box {
+      height: 10vh;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      margin-bottom: 3vh;
       position: relative;
-      z-index: 1;
-      width: 23px;
-      height: 23px;
-      margin: 16px;
-      background-color: currentColor;
-      border-radius: 50%;
+      text-align: center;
+      width: 80vw;
     }
 
-    @media (min-width: 740px) {
-      .stagger-visualizer .dot {
-        background-color: transparent;
-        background-image: linear-gradient(180deg, #FFFFFF 8%, #D3CDC6 100%);
-      }
+    .app-img-container {
+      /* 65vh + border width */
+      height: 67vh;
+      /* 65 * (9/16) ~= 37vh + (2 * border width) */
+      width: 41vh;
     }
 
-    .stagger-visualizer .cursor {
+    .app-img {
+      background-color: white;
+      border-radius: 4vh 4vh 0 0;
+      border-color: #fff;
+      border-style: solid;
+      border-width: 2vh 2vh 0 2vh;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
+      box-sizing: content-box;
+    }
+
+    .box {
+      z-index: 999;
+      margin: 0;
+      position: fixed;
+      top: 90%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:600&display=swap");
+
+    body {
+      height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    .multi-button {
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+      color: white !important;
+    }
+
+    .multi-button button {
+      background: indigo;
+      border: 0.125em solid white;
+      cursor: pointer;
+      font: 600 1.5rem/1.25 "Montserrat", sans-serif;
+      letter-spacing: 0.125em;
+      margin: 0.5rem;
+      padding: 0.5em 0.75em;
+      position: relative;
+      text-transform: uppercase;
+      color: white !important;
+
+    }
+
+    .multi-button button:before,
+    .multi-button button:after {
+      content: "";
       position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 37px;
-      height: 37px;
-      margin: 9px;
-      background-color: currentColor;
-      border-radius: 50%;
+      transition: all 0.125s ease-in-out;
     }
 
-    .button-success,
-    .button-error,
-    .button-warning,
-    .button-secondary {
-      color: white;
-      border-radius: 4px;
+    .multi-button button.cut {
+      background: none;
+      border-color: transparent;
     }
 
-    .button-success {
-      background: orange;
-      font-size: xx-large;
+    .multi-button button.cut:before,
+    .multi-button button.cut:after {
+      transition: all 0.175s ease-in-out;
+    }
 
-      /* this is a green */
+    .multi-button button.cut:before {
+      background: white;
+      border: 0px dashed white;
+      left: -0.125em;
+      top: -0.125em;
+      right: -0.125em;
+      bottom: -0.125em;
+      z-index: -1;
+    }
+
+    .multi-button button.cut:hover:before,
+    .multi-button button.cut:focus:before {
+      background: white;
+      border-width: 0.125em;
+    }
+
+    .multi-button button.cut:after {
+      background: white;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: -1;
+    }
+
+    .multi-button button.copy:after {
+      border: 0.125em dashed white;
+      bottom: -0.125em;
+      left: -0.125em;
+      right: -0.125em;
+      top: -0.125em;
+      z-index: -1;
+    }
+
+    .multi-button button.copy:hover:after,
+    .multi-button button.copy:focus:after {
+      bottom: -0.375em;
+      left: 0.125em;
+      right: -0.375em;
+      top: 0.125em;
+    }
+
+    .multi-button button.paste:after {
+      border: 0.125em dashed white;
+      bottom: -0.125em;
+      left: -0.125em;
+      right: -0.125em;
+      top: -0.125em;
+    }
+
+    .multi-button button.paste:hover:after,
+    .multi-button button.paste:focus:after {
+      bottom: 0.125em;
+      left: 0.125em;
+      right: 0.125em;
+      top: 0.125em;
+    }
+
+    .frat {
+      font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
+      color: indigo;
+      font-size: 5em;
+    }
+    body{
+      overflow: hidden !important;
+
     }
   </style>
 </head>
 
 <body>
-  <div class="animation-wrapper">
-    <div class="stagger-visualizer">
-      <div class="cursor color-red"></div>
-      <div class="dots-wrapper"></div>
+
+  <div class="box multi-button">
+    <button class="paste" onclick="redirectConsole()">Console</button>
+    <button class="paste" onclick="redirectJoin()">Demo room</button>
+  </div>
+  <!-- Recommended image format type for images are jpg, png. Images should not be bigger than 5 mb. -->
+  <div class="container">
+    <!-- Recommended logo aspect ratio is 1:1. Replace app-install-logo-blurred.jpg with your own logo. -->
+    <div class="frat">FRAT</div>
+    <div class="text-box">
+      <!-- Recommended text font size is min 16pt and max 64pt. Color can be flexible. -->
+      <amp-fit-text id="text" width="70" height="12" layout="fill" min-font-size="16" max-font-size="64">
+        3D classrooms, smart attendance and quizzes
+      </amp-fit-text>
+
+    </div>
+    <div class="app-img-container">
+      <!-- Replace app-install-hero-blurred.jpg with your own asset. -->
+      <amp-img alt="app image" class="app-img" src="./images/index-hero.png" width="450" height="800"
+        layout="responsive">
+      </amp-img>
     </div>
   </div>
-  <div style="font-family: 'Bungee Inline',Arial;position: fixed;top: 20%;font-size:500%;color: indigo;">FRAT</div>
-  <div style="font-family: 'Bungee Inline',Arial;position: fixed;top: 45%;color: indigo;background: rgba(255,255,255,.5);text-align: center;">
-    <h4>World's first 3D virtual classroom with smart attendance, on the fly quizzes and shared whiteboard.<br><u>
-      All for free!
-    </u></h4><br><br><button class="button-success pure-button" onclick="window.location.href='/login.html';">Get started</button>
-  </div>
-  <script type="text/javascript">
-    function fitElementToParent(el, padding) {
-      var timeout = null;
-      function resize() {
-        if (timeout) clearTimeout(timeout);
-        anime.set(el, { scale: 1 });
-        var pad = padding || 0;
-        var parentEl = el.parentNode;
-        var elOffsetWidth = el.offsetWidth - pad;
-        var parentOffsetWidth = parentEl.offsetWidth;
-        var ratio = parentOffsetWidth / elOffsetWidth;
-        timeout = setTimeout(anime.set(el, { scale: ratio }), 10);
-      }
-      resize();
-      window.addEventListener('resize', resize);
-    }
-
-    var advancedStaggeringAnimation = (function () {
-
-      var staggerVisualizerEl = document.querySelector('.stagger-visualizer');
-      var dotsWrapperEl = staggerVisualizerEl.querySelector('.dots-wrapper');
-      var dotsFragment = document.createDocumentFragment();
-      var grid = [20, 10];
-      var cell = 55;
-      var numberOfElements = grid[0] * grid[1];
-      var animation;
-      var paused = true;
-
-      fitElementToParent(staggerVisualizerEl, 0);
-
-      for (var i = 0; i < numberOfElements; i++) {
-        var dotEl = document.createElement('div');
-        dotEl.classList.add('dot');
-        dotsFragment.appendChild(dotEl);
-      }
-
-      dotsWrapperEl.appendChild(dotsFragment);
-
-      var index = anime.random(0, numberOfElements - 1);
-      var nextIndex = 0;
-
-      anime.set('.stagger-visualizer .cursor', {
-        translateX: anime.stagger(-cell, { grid: grid, from: index, axis: 'x' }),
-        translateY: anime.stagger(-cell, { grid: grid, from: index, axis: 'y' }),
-        translateZ: 0,
-        scale: 1.5,
-      });
-
-      function play() {
-
-        paused = false;
-        if (animation) animation.pause();
-
-        nextIndex = anime.random(0, numberOfElements - 1);
-
-        animation = anime.timeline({
-          easing: 'easeInOutQuad',
-          complete: play
-        })
-          .add({
-            targets: '.stagger-visualizer .cursor',
-            keyframes: [
-              { scale: .75, duration: 120 },
-              { scale: 2.5, duration: 220 },
-              { scale: 1.5, duration: 450 },
-            ],
-            duration: 300
-          })
-          .add({
-            targets: '.stagger-visualizer .dot',
-            keyframes: [
-              {
-                translateX: anime.stagger('-2px', { grid: grid, from: index, axis: 'x' }),
-                translateY: anime.stagger('-2px', { grid: grid, from: index, axis: 'y' }),
-                duration: 100
-              }, {
-                translateX: anime.stagger('4px', { grid: grid, from: index, axis: 'x' }),
-                translateY: anime.stagger('4px', { grid: grid, from: index, axis: 'y' }),
-                scale: anime.stagger([2.6, 1], { grid: grid, from: index }),
-                duration: 225
-              }, {
-                translateX: 0,
-                translateY: 0,
-                scale: 1,
-                duration: 1200,
-              }
-            ],
-            delay: anime.stagger(80, { grid: grid, from: index })
-          }, 30)
-          .add({
-            targets: '.stagger-visualizer .cursor',
-            translateX: { value: anime.stagger(-cell, { grid: grid, from: nextIndex, axis: 'x' }) },
-            translateY: { value: anime.stagger(-cell, { grid: grid, from: nextIndex, axis: 'y' }) },
-            scale: 1.5,
-            easing: 'cubicBezier(.075, .2, .165, 1)'
-          }, '-=800')
-
-        index = nextIndex;
-
-      }
-
-      play();
-
-    })();
-  </script>
 </body>
-
+<script>
+  function redirectConsole(){
+    window.location.replace("/console")
+  } function redirectJoin(){
+    window.location.replace("https://class.frat.team")
+  }
+</script>
 </html>

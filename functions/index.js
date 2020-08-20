@@ -36,7 +36,7 @@ app.post("/addUser", async (req, res) => {
 });
 app.get("/attendance", async (req, res) => {
   //var reqData = req.body;
-  console.log(req.query.roomID)
+  console.log(req.query.roomID);
   await admin
     .firestore()
     .collection("rooms")
@@ -62,17 +62,13 @@ app.get("/attendance", async (req, res) => {
           worksheet.cell(row, 1).string(fields[key].username).style(style);
           worksheet.cell(row, 2).string(fields[key].roll).style(style);
           if (Number(fields[key].att) >= 27) {
-            worksheet
-              .cell(row, 3)
-              .string("Yes").style(style)
+            worksheet.cell(row, 3).string("Yes").style(style);
           } else {
-            worksheet
-              .cell(row, 3)
-              .string("No").style(style)
+            worksheet.cell(row, 3).string("No").style(style);
           }
-          row = row+1
+          row = row + 1;
         }
-        workbook.write(req.query.displayName+".xlsx",res);
+        workbook.write(req.query.displayName + ".xlsx", res);
         /*res.setHeader("Content-disposition", `attachment;filename=data.xls`);
         res.setHeader("Content-type", "application/vnd.ms-excel");
         res.charset = "UTF-8";

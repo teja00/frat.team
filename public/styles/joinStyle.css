@@ -28,7 +28,7 @@ body {
   place-content: center;
   width: calc(100% - 40px);
 }
-@media (min-width: 767px) {
+@media (min-width: 600px) {
   body {
     background-position: center;
   }
@@ -39,7 +39,7 @@ body {
     color: aliceblue;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .login {
     color: indigo;
     color: black;
@@ -56,7 +56,7 @@ body {
   margin: 0 auto;
   width: 640px;
 }
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .container {
     flex-direction: column;
     height: 630px;
@@ -70,7 +70,7 @@ body {
   position: relative;
   width: 50%;
 }
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .left {
     height: 100%;
     left: 20px;
@@ -95,7 +95,7 @@ body {
   position: relative;
   width: 50%;
 }
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .right {
     flex-shrink: 0;
     height: 100%;
