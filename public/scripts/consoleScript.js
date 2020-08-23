@@ -562,34 +562,37 @@ $(document).ready(function () {
           end: endDay,
           description: description,
           type: type,
-          calendar: calendar,
           backgroundColor: "#1756ff",
           textColor: "#ffffff",
         };
+        console.log("eve",eventData)
+        console.log("eve",eventData._id)
+        console.log("eve",eventData.title)
+        console.log("eve",eventData.start)
+        console.log("eve",eventData.end)
+        console.log("eve",eventData.description)
+        console.log("eve",eventData.type)
+        console.log("eve",eventData.backgroundColor)
+        console.log("eve",eventData.textColor)
         $("#calendar").fullCalendar("renderEvent", eventData, true);
         $("#newEventModal").find("input, textarea").val("");
         $("#newEventModal").find("input:checkbox").prop("checked", false);
         $("#ends-at").prop("disabled", false);
         $("#newEventModal").modal("hide");
+        eventData.roomID = roomID
         if (roomID !== "none") {
-          db.collection("calendar")
-            .doc(roomID)
-            .set(
-              {
-                [eventData._id]: {
-                  id: eventData._id,
-                  title: eventData.title,
-                  start: eventData.start,
-                  end: eventData.end,
-                  description: eventData.description,
-                  type: eventData.type,
-                  calendar: eventData.calendar,
-                  background: eventData.backgroundColor,
-                  text: eventData.textColor,
-                },
+          fetch(
+            "http://localhost:5005/fir-rtc-926a7/us-central1/widgets/addEvent",
+            {
+              method: "POST", // or 'PUT'
+              headers: {
+                "Content-Type": "application/json",
               },
-              { merge: true }
-            );
+              body: JSON.stringify(eventData),
+            }
+          ).then((response) => {
+            console.log(response.json())
+          })
         }
       } else {
         alert("Title can't be blank. Please try again.");
@@ -666,7 +669,6 @@ $(document).ready(function () {
                 start: event.start,
                 end: event.end,
                 description: event.description,
-                calendar: event.calendar,
               },
             });
         }
@@ -680,12 +682,24 @@ $(document).ready(function () {
       console.log(event._id);
       var ind = event._id;
       console.log(event.id);
+      var bodyJ = {
+        e1 : event._id,
+        e2 : event.id,
+        roomID : roomID
+      }
       if (roomID !== "none") {
-        db.collection("calendar")
-          .doc(roomID)
-          .update({
-            [event.id]: firebase.firestore.FieldValue.delete(),
-          });
+        fetch(
+          "http://localhost:5005/fir-rtc-926a7/us-central1/widgets/remEvent",
+          {
+            method: "POST", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bodyJ),
+          }
+        ).then((response) => {
+          console.log(response.json())
+        })
       }
       if (event._id.includes("_fc")) {
         console.log("S");

@@ -103,6 +103,58 @@ app.post("/signup", async (req, res) => {
       res.send({ status: 2 });
     });
 });
+app.post("/addEvent", async (req, res) => {
+  var eventData = req.body;
+  var as = await admin
+    .firestore()
+    .collection("calendar")
+    .doc(eventData.roomID)
+    .set(
+      {
+        [eventData._id]: {
+          id: eventData._id,
+          _id: eventData._id,
+          title: eventData.title,
+          start: eventData.start,
+          end: eventData.end,
+          description: eventData.description,
+          type: eventData.type,
+          background: eventData.backgroundColor,
+          text: eventData.textColor,
+        },
+      },
+      { merge: true }
+    )
+    .catch(function (error) {
+      console.error("Error writing document: ", error);
+      res.send({ status: 2 });
+    });
+  res.send({ status: 7 });
+  return;
+});
+app.post("/remEvent", async (req, res) => {
+  var bodyJ = req.body;
+  for (let key in bodyJ) {
+    if (key === "roomID") {
+      var epo = 0;
+    } else {
+      var et = bodyJ[key];
+      as = admin
+        .firestore()
+        .collection("calendar")
+        .doc(bodyJ.roomID)
+        .update({
+          [et]: admin.firestore.FieldValue.delete(),
+        })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
+          res.send({ status: 2 });
+        });
+    }
+  }
+  res.send({ status: 7 });
+  return;
+});
 app.post("/join", async (req, res) => {
   console.log("json", req.body);
   var room = req.body;
