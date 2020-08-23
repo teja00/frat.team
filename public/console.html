@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,14 +16,36 @@
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
   <meta name="msapplication-TileColor" content="#3372DF">
   <link rel="shortcut icon" href="images/favicon.png">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-orange.min.css" />
   <link rel="stylesheet" href="./styles/consoleStyle.css">
   <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css'>
+  <link rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css'>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css' rel='stylesheet'
+    media='print' />
+  <style>
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1040;
+      background-color: #000;
+    }
+
+    .modal-backdrop.in {
+      filter: alpha(opacity=50);
+      opacity: .5;
+    }
+  </style>
 </head>
+
 <body>
   <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
@@ -59,7 +82,8 @@
         <a class="mdl-navigation__link" href="#attendanceHeader"><i class="mdl-color-text--blue-grey-400 material-icons"
             role="presentation">groups</i>Attendance</a>
         <div class="mdl-layout-spacer"></div>
-        <a class="mdl-navigation__link mdl-color-text--white" style="background-color: red;" onclick="signoutFunction()"><i class="mdl-color-text--white material-icons"
+        <a class="mdl-navigation__link mdl-color-text--white" style="background-color: red;"
+          onclick="signoutFunction()"><i class="mdl-color-text--white material-icons"
             role="presentation">exit_to_app</i>Sign out<span class="visuallyhidden">Sign out</span></a>
       </nav>
     </div>
@@ -75,11 +99,23 @@
         </div>
       </div>
       <div class="mdl-grid mdl-grid--no-spacing">
-        <div
-          class="tabs mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
-          id="classRoomTag">
-          <div id="classLoad">Loading...</div>
+        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+          <!-- Colored raised button -->
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" id="referral">
+    <label class="mdl-textfield__label" for="referral">Referral code...</label>
+  </div>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="addRoomByReferral()">
+    Add
+  </button>
         </div>
+        <div id="classLoad"></div>
+        <select
+          class="box mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+          id="classRoomTag" onchange="roomChangeFunction()">
+          <option value="none">Select a classroom</option>
+        </select>
         <!-- Colored FAB button with ripple -->
         <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--expandable
          mdl-textfield--floating-label mdl-textfield--align-right" style="text-align:center;position: relative;
@@ -93,15 +129,115 @@
             <i class="material-icons">search</i>
           </label>
           <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="search-expandable1" placeholder="Telugu07">
+            <input class="mdl-textfield__input" type="text" id="search-expandable1" placeholder="Telugu07" minlength="7">
             <label class="mdl-textfield__label" for="search-expandable1">
               Enter classroom name
             </label>
           </div>
         </div>
-        <div class="mdl-cell-4--col">
-          <div class="">
+        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone" id="linkContainer">
+
+        </div>
+        <div id="calenderContainer" style="display: none;">
+          <div id="contextMenu" class="dropdown clearfix">
           </div>
+          <div id="wrapper">
+            <div id="loading"></div>
+            <div class="print-visible" id="calendar"></div>
+          </div>
+          <!-- ADD EVENT MODAL -->
+          <div class="modal fade" tabindex="-1" role="dialog" id="newEventModal">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="top:20%">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Create new <span class="eventType"></span></h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="title">Event title</label>
+                      <input class="inputModal" type="text" name="title" id="title" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="starts-at">Starts at</label>
+                      <input class="inputModal" type="text" name="starts_at" id="starts-at" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="ends-at">Ends at</label>
+                      <input class="inputModal" type="text" name="ends_at" id="ends-at" />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="add-event-desc">Description</label>
+                      <textarea rows="4" cols="50" class="inputModal" name="add-event-desc"
+                        id="add-event-desc"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="save-event">Save changes</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+          <!-- EDIT EVENT MODAL -->
+
+          <div class="modal fade" tabindex="-1" role="dialog" id="editEventModal">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="top:20%">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Edit <span class="eventName"></span></h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="title">Event title</label>
+                      <input class="inputModal" type="text" name="editTitle" id="editTitle" />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="starts-at">Starts at</label>
+                      <input class="inputModal" type="text" name="editStartDate" id="editStartDate" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="ends-at">Ends at</label>
+                      <input class="inputModal" type="text" name="editEndDate" id="editEndDate" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="col-xs-4" for="edit-event-desc">Description</label>
+                      <textarea rows="4" cols="50" class="inputModal" name="edit-event-desc"
+                        id="edit-event-desc"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" id="deleteEvent">Delete Event</button>
+                  <button type="button" class="btn btn-primary" id="updateEvent" disabled>Save changes</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
         </div>
       </div>
 
@@ -178,7 +314,7 @@
           id="attendanceTag">
           <div id="attendanceLoad">Loading...</div>
         </div>
-        
+
       </div>
 
       <footer class="mdl-mini-footer">
@@ -192,8 +328,25 @@
           </ul>
         </div>
       </footer>
+      <button id="demo-show-snackbar" style="display: none;" type="button"></button>
+        <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar"
+            style="font-size: x-large;width: 100%;">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
     </main>
   </div>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCit4RJVPT9UiLQCJJPYEBkNTJCslqO4ps&libraries=places"></script>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js'></script>
+  <script
+    src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js'></script>
   <script src="/__/firebase/7.17.1/firebase-app.js"></script>
   <script src="/__/firebase/7.17.1/firebase-firestore.js"></script>
   <script src="/__/firebase/7.17.1/firebase-auth.js"></script>
@@ -201,7 +354,7 @@
   <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="./scripts/consoleScript.js"></script>
   <script>
-    function signoutFunction(){
+    function signoutFunction() {
       firebase.auth().signOut()
     }
   </script>
