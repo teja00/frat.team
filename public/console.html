@@ -79,8 +79,6 @@
             role="presentation">cast_for_education</i>Virtual Rooms</a>
         <a class="mdl-navigation__link" href="#quizHeader"><i class="mdl-color-text--blue-grey-400 material-icons"
             role="presentation">assignment</i>Quizzes</a>
-        <a class="mdl-navigation__link" href="#attendanceHeader"><i class="mdl-color-text--blue-grey-400 material-icons"
-            role="presentation">groups</i>Attendance</a>
         <div class="mdl-layout-spacer"></div>
         <a class="mdl-navigation__link mdl-color-text--white" style="background-color: red;"
           onclick="signoutFunction()"><i class="mdl-color-text--white material-icons"
@@ -89,7 +87,7 @@
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid " id="classroomHeader">
-        <div class="demo-charts mdl-color--orange mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid ">
+        <div class="demo-charts mdl-color--indigo mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid ">
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-cell ">
             <div class='polygon shaped'>
@@ -99,20 +97,19 @@
         </div>
       </div>
       <div class="mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-          <!-- Colored raised button -->
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="referral">
-    <label class="mdl-textfield__label" for="referral">Referral code...</label>
-  </div>
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="addRoomByReferral()">
-    Add
-  </button>
+        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+          style="text-align: center;">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="referral">
+            <label class="mdl-textfield__label" for="referral">Referral code...</label>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="addRoomByReferral()">
+            Join
+          </button>
         </div>
         <div id="classLoad"></div>
         <select
-          class="box mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+          class="box mdl-color--indigo mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
           id="classRoomTag" onchange="roomChangeFunction()">
           <option value="none">Select a classroom</option>
         </select>
@@ -129,16 +126,26 @@
             <i class="material-icons">search</i>
           </label>
           <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="search-expandable1" placeholder="Telugu07" minlength="7">
+            <input class="mdl-textfield__input" type="text" id="search-expandable1" placeholder="Telugu07"
+              minlength="7">
             <label class="mdl-textfield__label" for="search-expandable1">
               Enter classroom name
             </label>
           </div>
         </div>
-        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone" id="linkContainer">
+        <div class="mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+          id="linkContainer">
 
         </div>
         <div id="calenderContainer" style="display: none;">
+          <div class="mdl-cell--11-col-desktop mdl-cell--1-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+            style="text-align:right">
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+              onclick="refreshCalendarData()">
+              Refresh
+            </button>
+          </div>
           <div id="contextMenu" class="dropdown clearfix">
           </div>
           <div id="wrapper">
@@ -242,7 +249,7 @@
       </div>
 
       <div class="mdl-grid " id="quizHeader">
-        <div class="quiz mdl-color--orange mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid ">
+        <div class="quiz mdl-color--indigo mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid ">
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-cell ">
             <div class='polygon shaped'>
@@ -295,10 +302,8 @@
           </button>
 
         </div>
-
-
       </div>
-      <div class="mdl-grid " id="attendanceHeader">
+      <div class="mdl-grid " id="attendanceHeader" style="display: none;">
         <div class="attendance mdl-color--orange mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid ">
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-cell ">
@@ -329,11 +334,10 @@
         </div>
       </footer>
       <button id="demo-show-snackbar" style="display: none;" type="button"></button>
-        <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar"
-            style="font-size: x-large;width: 100%;">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
-        </div>
+      <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar" style="font-size: x-large;width: 100%;">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
     </main>
   </div>
   <script

@@ -565,15 +565,6 @@ $(document).ready(function () {
           backgroundColor: "#1756ff",
           textColor: "#ffffff",
         };
-        console.log("eve",eventData)
-        console.log("eve",eventData._id)
-        console.log("eve",eventData.title)
-        console.log("eve",eventData.start)
-        console.log("eve",eventData.end)
-        console.log("eve",eventData.description)
-        console.log("eve",eventData.type)
-        console.log("eve",eventData.backgroundColor)
-        console.log("eve",eventData.textColor)
         $("#calendar").fullCalendar("renderEvent", eventData, true);
         $("#newEventModal").find("input, textarea").val("");
         $("#newEventModal").find("input:checkbox").prop("checked", false);
@@ -582,7 +573,7 @@ $(document).ready(function () {
         eventData.roomID = roomID
         if (roomID !== "none") {
           fetch(
-            "http://localhost:5005/fir-rtc-926a7/us-central1/widgets/addEvent",
+            "https://us-central1-fir-rtc-926a7.cloudfunctions.net/widgets/addEvent",
             {
               method: "POST", // or 'PUT'
               headers: {
@@ -689,7 +680,7 @@ $(document).ready(function () {
       }
       if (roomID !== "none") {
         fetch(
-          "http://localhost:5005/fir-rtc-926a7/us-central1/widgets/remEvent",
+          "https://us-central1-fir-rtc-926a7.cloudfunctions.net/widgets/remEvent",
           {
             method: "POST", // or 'PUT'
             headers: {
@@ -771,6 +762,9 @@ $(document).ready(function () {
     $("#inputCustomCalendar").val("");
   });
 });
+function refreshCalendarData(){
+  roomChangeFunction()
+}
 function addRoomByReferral() {
   var ref = document.getElementById("referral").value;
   document.getElementById("referral").value = "";

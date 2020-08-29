@@ -1,243 +1,477 @@
-<!doctype html>
-<html ⚡4ads>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <script async src="https://cdn.ampproject.org/amp4ads-v0.js"></script>
-  <script src="https://cdn.ampproject.org/v0.js"></script>
-  <style amp4ads-boilerplate>
-    body {
-      visibility: hidden
-    }
-  </style>
-  <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-  <!-- The AMP Story runtime is responsible for rendering the call to action button. 
-  The call to action button must be configured from a predefined set of [choices](https://www.ampproject.org/docs/ads/story_ads_best_practices). -->
-  <meta name="amp-cta-type" content="INSTALL">
-  <!-- amp-cta-url specifies where the user is directed once clicking upon the call to action button. -->
-  <meta name="amp-cta-url" content="https://frat.team">
-  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style amp-custom>
-    @font-face {
-      font-family: "Poppins";
-      font-weight: 700;
-      src: url("https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2");
-    }
+    <title>Frat</title>
 
-    * {
-      box-sizing: border-box;
-    }
+    <!-- load CSS -->
+    <link rel="stylesheet" href="./indexF/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="./indexF/css/bootstrap.min.css"> <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="./indexF/fontawesome/css/fontawesome-all.min.css"> <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" type="text/css" href="./indexF/slick/slick.css" />
+    <!-- http://kenwheeler.github.io/slick/ -->
+    <link rel="stylesheet" type="text/css" href="./indexF/slick/slick-theme.css" />
+    <link rel="stylesheet" href="./indexF/css/tooplate-style.css">
+    <link rel="stylesheet" href="./indexF/css/style.css">
 
-    .container {
-      align-items: center;
-      background-color: #FDC629;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      justify-content: flex-end;
-      width: 100vw;
-      
-    }
+    <script>document.documentElement.className = "js"; var supportsCssVars = function () { var e, t = document.createElement("style"); return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e }; supportsCssVars() || alert("Please view this in a modern browser such as latest version of Chrome or Microsoft Edge.");</script>
 
-    .logo {
-      border-radius: 1.5vh;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-      height: 10vh;
-      margin-bottom: 3vh;
-      width: 10vh;
-    }
+    <style>
+        html {
+            box-sizing: border-box;
+        }
 
-    .text-box {
-      height: 10vh;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      margin-bottom: 3vh;
-      position: relative;
-      text-align: center;
-      width: 80vw;
-    }
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
 
-    .app-img-container {
-      /* 65vh + border width */
-      height: 67vh;
-      /* 65 * (9/16) ~= 37vh + (2 * border width) */
-      width: 41vh;
-    }
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
 
-    .app-img {
-      background-color: white;
-      border-radius: 4vh 4vh 0 0;
-      border-color: #fff;
-      border-style: solid;
-      border-width: 2vh 2vh 0 2vh;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
-      box-sizing: content-box;
-    }
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        }
 
-    .box {
-      z-index: 999;
-      margin: 0;
-      position: fixed;
-      top: 90%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-    }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
 
-    @import url("https://fonts.googleapis.com/css?family=Montserrat:600&display=swap");
+        .container {
+            padding: 0 16px;
+        }
 
-    body {
-      height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-    }
+        .container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
 
-    *,
-    *:before,
-    *:after {
-      box-sizing: border-box;
-    }
+        .title {
+            color: grey;
+        }
 
-    .multi-button {
-      margin-left: -0.5rem;
-      margin-right: -0.5rem;
-      color: white !important;
-    }
+        .frat {
+            font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
 
-    .multi-button button {
-      background: indigo;
-      border: 0.125em solid white;
-      cursor: pointer;
-      font: 600 1.5rem/1.25 "Montserrat", sans-serif;
-      letter-spacing: 0.125em;
-      margin: 0.5rem;
-      padding: 0.5em 0.75em;
-      position: relative;
-      text-transform: uppercase;
-      color: white !important;
-
-    }
-
-    .multi-button button:before,
-    .multi-button button:after {
-      content: "";
-      position: absolute;
-      transition: all 0.125s ease-in-out;
-    }
-
-    .multi-button button.cut {
-      background: none;
-      border-color: transparent;
-    }
-
-    .multi-button button.cut:before,
-    .multi-button button.cut:after {
-      transition: all 0.175s ease-in-out;
-    }
-
-    .multi-button button.cut:before {
-      background: white;
-      border: 0px dashed white;
-      left: -0.125em;
-      top: -0.125em;
-      right: -0.125em;
-      bottom: -0.125em;
-      z-index: -1;
-    }
-
-    .multi-button button.cut:hover:before,
-    .multi-button button.cut:focus:before {
-      background: white;
-      border-width: 0.125em;
-    }
-
-    .multi-button button.cut:after {
-      background: white;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: -1;
-    }
-
-    .multi-button button.copy:after {
-      border: 0.125em dashed white;
-      bottom: -0.125em;
-      left: -0.125em;
-      right: -0.125em;
-      top: -0.125em;
-      z-index: -1;
-    }
-
-    .multi-button button.copy:hover:after,
-    .multi-button button.copy:focus:after {
-      bottom: -0.375em;
-      left: 0.125em;
-      right: -0.375em;
-      top: 0.125em;
-    }
-
-    .multi-button button.paste:after {
-      border: 0.125em dashed white;
-      bottom: -0.125em;
-      left: -0.125em;
-      right: -0.125em;
-      top: -0.125em;
-    }
-
-    .multi-button button.paste:hover:after,
-    .multi-button button.paste:focus:after {
-      bottom: 0.125em;
-      left: 0.125em;
-      right: 0.125em;
-      top: 0.125em;
-    }
-
-    .frat {
-      font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
-      color: indigo;
-      font-size: 5em;
-    }
-    body{
-      overflow: hidden !important;
-
-    }
-  </style>
+        }
+    </style>
 </head>
 
 <body>
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
 
-  <div class="box multi-button">
-    <button class="paste" onclick="redirectConsole()">Console</button>
-    <button class="paste" onclick="redirectJoin()">Demo room</button>
-  </div>
-  <!-- Recommended image format type for images are jpg, png. Images should not be bigger than 5 mb. -->
-  <div class="container">
-    <!-- Recommended logo aspect ratio is 1:1. Replace app-install-logo-blurred.jpg with your own logo. -->
-    <div class="frat">FRAT</div>
-    <div class="text-box">
-      <!-- Recommended text font size is min 16pt and max 64pt. Color can be flexible. -->
-      <amp-fit-text id="text" width="70" height="12" layout="fill" min-font-size="16" max-font-size="64">
-        3D classrooms, smart attendance and quizzes
-      </amp-fit-text>
 
+        <div id="tm-bg"></div>
+
+        <div id="tm-wrap">
+
+            <div class="tm-main-content">
+
+                <div class="container tm-site-header-container">
+
+                    <div class="row">
+
+                        <div
+                            class="col-sm-12 col-md-6 col-lg-6 col-md-col-xl-6 mb-md-0 mb-sm-4 mb-4 tm-site-header-col">
+                            <div class="tm-site-header">
+                                <h1 class="mb-4 logo"><span class="frat">FRAT</span></h1>
+                                <a class="btn btn-primary tm-btn-submit getStarted" href="/console">GET STARTED FOR
+                                    FREE</a>
+                                <br>
+                                <img src="./indexF/img/underline.png" class="img-fluid mb-4">
+                                <p>India's first 3D virtual classroom with smart attendance, on the fly quizzes and
+                                    shared whiteboard.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="content">
+                                <div class="grid">
+                                    <div class="grid__item" id="home-link">
+                                        <div class="product luBox">
+                                            <div class="tm-nav-link">
+                                                <i class="fas fa-home fa-3x tm-nav-icon" style="color: orange;"></i>
+                                                <span class="tm-nav-text">Welcome</span>
+                                                <div class="product__bg"></div>
+                                            </div>
+                                            <div class="product__description">
+                                                <div class="row mb-3">
+                                                    <div class="col-12">
+                                                        <h2 class="tm-page-title">Welcome to <span
+                                                                class="frat">FRAT</span></h2>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                        <img src="./indexF/img/class.PNG" class="img-fluid mb-3">
+                                                        <p>
+                                                        <h4>Core benefits of <span class="frat">FRAT</span></h4>
+                                                        <li> Free and No download required</li>
+                                                        <li> Easy administration</li>
+                                                        <li> Video conferencing</li>
+                                                        <li> Online Quizzes</li>
+                                                        <li> Whiteboard</li>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                        <p><span class="frat">FRAT</span> is 3D Virtual Classroom with
+                                                            attendance based on facial
+                                                            recognition and many other features designed to act as a
+                                                            platform for conducting online classes.
+                                                            <br>
+                                                            We use "One class One room concept" where students need not
+                                                            go through the difficulty of shifting rooms from one session
+                                                            to another. They stay in one room throughout their semester.
+                                                            In other words, students belonging to a section are given a
+                                                            link that is used by the faculty to enter and leave in their
+                                                            respective timings.
+
+
+                                                        </p>
+                                                        <img src="./indexF/img/undraw_group_video_el8e.png"
+                                                            class="img-fluid">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item" id="team-link">
+                                        <div class="product ruBox">
+                                            <div class="tm-nav-link">
+                                                <i class="fas fa-users fa-3x tm-nav-icon" style="color: orange;"></i>
+                                                <span class="tm-nav-text">Our Team</span>
+                                                <div class="product__bg"></div>
+                                            </div>
+                                            <div class="product__description">
+                                                <div class="p-sm-4 p-2">
+                                                    <div class="row mb-3">
+                                                        <div class="col-12">
+                                                            <h2 class="tm-page-title"> Our Team</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/anil.png" alt="Jane"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Anil Turaga</h2>
+                                                                <p class="title"> Founder</p>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/teja.png" alt="Mike"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Teja N</h2>
+                                                                <p class="title">Co Founder</p>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/jayaram.png" alt="John"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Jayaram P</h2>
+                                                                <p class="title">Dev Team</p>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/Sonali.png" alt="Jane"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Sai Sonali</h2>
+                                                                <p class="title">Dev Team</p>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/koushik.png" alt="Mike"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Sai Koushik</h2>
+                                                                <p class="title">Dev Team</p>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="column">
+
+                                                            <img src="./indexF/img/preetham.png" alt="John"
+                                                                style="width:100%">
+                                                            <div class="container">
+                                                                <h2>Preetham Raj</h2>
+                                                                <p class="title">Dev Team</p>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item">
+                                        <div class="product lbBox">
+                                            <div class="tm-nav-link">
+                                                <i class="fas fa-handshake fa-3x tm-nav-icon"
+                                                    style="color: orange;"></i>
+                                                <span class="tm-nav-text">Our Work</span>
+                                                <div class="product__bg"></div>
+                                            </div>
+                                            <div class="product__description">
+                                                <div class="p-sm-4 p-2">
+                                                    <div class="row mb-3">
+                                                        <div class="col-12">
+                                                            <h2 class="tm-page-title">Our Work</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-12">
+                                                            <ul>
+
+
+
+                                                                <li>3D virtual classroom - </li><br>
+                                                                <li>Calender - Schedule and manage classes by using the
+                                                                    calender where you can view, organise and create
+                                                                    events. </li>
+                                                                <br>
+                                                                <li>Online Quizzes - Any number of quizzes can be
+                                                                    conducted during the session with just a click.
+                                                                </li>
+                                                                <br>
+                                                                <li>Whiteboard Support - Insert shapes, draw, write text
+                                                                    with the help of various tools provided while
+                                                                    teaching without any difficulty. This functionality
+                                                                    is restricted only to teachers and students can
+                                                                    simply view the whiteboard. The whiteboard image can
+                                                                    be easily saved as a PDF file locally to your
+                                                                    device. Nothing is collected or stored by us and is
+                                                                    deleted once the class is closed. </li>
+                                                                <br>
+                                                                <li>Smart Attendance - FRAT provides an AI powered face
+                                                                    recognition solution which uses Computer Vision and
+                                                                    Machine Learning algorithms to mark the attendance
+                                                                    of the students of the organisation.<br /><br />The
+                                                                    System records the attendance by clicking pictures
+                                                                    periodically and keeping a score. A student is
+                                                                    marked attendance if this score meets a threshold.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="p-sm-4 p-2 tm-img-container">
+                                                                <div class="tm-img-slider" id="tmImgSlider">
+                                                                    <a href="#" class="tm-slider-img-link"><img
+                                                                            src="./indexF/img/undraw_3d_modeling_h60h.png"
+                                                                            alt="Image 1"
+                                                                            class="img-fluid tm-slider-img"></a>
+                                                                    <a href="#" class="tm-slider-img-link"><img
+                                                                            src="./indexF/img/undraw_booking_33fn.png"
+                                                                            alt="Image 2"
+                                                                            class="img-fluid tm-slider-img"></a>
+                                                                    <a href="#" class="tm-slider-img-link"><img
+                                                                            src="./indexF/img/undraw_developer_activity_bv83.png"
+                                                                            alt="Image 3"
+                                                                            class="img-fluid tm-slider-img"></a>
+                                                                    <a href="#" class="tm-slider-img-link"><img
+                                                                            src="./indexF/img/undraw_quiz_nlyh.png"
+                                                                            alt="Image 4"
+                                                                            class="img-fluid tm-slider-img"></a>
+                                                                    <a href="#" class="tm-slider-img-link"><img
+                                                                            src="./indexF/img/undraw_group_video_el8e.png"
+                                                                            alt="Image 5"
+                                                                            class="img-fluid tm-slider-img"></a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item">
+                                        <div class="product rbBox">
+                                            <div class="tm-nav-link">
+                                                <i class="fas fa-comments fa-3x tm-nav-icon" style="color: orange;"></i>
+                                                <span class="tm-nav-text">Contact</span>
+                                                <div class="product__bg"></div>
+                                            </div>
+                                            <div class="product__description">
+                                                <div class="pt-sm-4 pb-sm-4 pl-sm-5 pr-sm-5 pt-2 pb-2 pl-3 pr-3">
+                                                    <div class="row mb-3">
+                                                        <div class="col-12">
+                                                            <h2 class="tm-page-title">Contact Us</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <div class="col-12">
+                                                            <p>If you have a question or a comment, Feel free to call us.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12" style="text-align: center;">
+                                                           <a href="tel:9866085588" class="btn btn-primary" style="background-color:#FFA500">Call</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- .tm-main-content -->
+        </div>
     </div>
-    <div class="app-img-container">
-      <!-- Replace app-install-hero-blurred.jpg with your own asset. -->
-      <amp-img alt="app image" class="app-img" src="./images/index-hero.png" width="450" height="800"
-        layout="responsive">
-      </amp-img>
-    </div>
-  </div>
+
+    <!-- load JS -->
+    <script src="./indexF/js/jquery-3.2.1.slim.min.js"></script> <!-- https://jquery.com/ -->
+    <script src="./indexF/slick/slick.min.js"></script> <!-- http://kenwheeler.github.io/slick/ -->
+    <script src="./indexF/js/anime.min.js"></script> <!-- http://animejs.com/ -->
+    <script src="./indexF/js/main.js"></script>
+
+    <script>
+
+        function setupFooter() {
+            var pageHeight = $('.tm-site-header-container').height() + $('footer').height() + 100;
+
+            var main = $('.tm-main-content');
+
+            if ($(window).height() < pageHeight) {
+                main.addClass('tm-footer-relative');
+            }
+            else {
+                main.removeClass('tm-footer-relative');
+            }
+        }
+
+        /* DOM is ready
+        ------------------------------------------------*/
+        $(function () {
+
+            setupFooter();
+
+            $(window).resize(function () {
+                setupFooter();
+            });
+
+            $('.tm-current-year').text(new Date().getFullYear());  // Update year in copyright           
+        });
+        anime({
+            targets: '.getStarted',
+            translateX: [-72, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });
+        anime({
+            targets: '.logo',
+            translateY: [-72, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });/*
+        anime({
+            targets: '.luBox',
+            translateX: [-50, 0],
+            translateY: [-50, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });anime({
+            targets: '.lbBox',
+            translateX: [-50, 0],
+            translateY: [50, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });anime({
+            targets: '.ruBox',
+            translateX: [50, 0],
+            translateY: [-50, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });anime({
+            targets: '.rbBox',
+            translateX: [50, 0],
+            translateY: [50, 0],
+            autoplay: true,
+            easing: 'easeInOutSine',
+            duration: 500
+        });*/
+    </script>
+    <script>
+    //!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.d5c3db74c9bd2d9882035c4e23e76768.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>
+
+    <script src="./indexF/js/script.js"></script>
 </body>
-<script>
-  function redirectConsole(){
-    window.location.replace("/console")
-  } function redirectJoin(){
-    window.location.replace("https://class.frat.team")
-  }
-</script>
+
 </html>
