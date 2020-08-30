@@ -123,28 +123,8 @@ document.getElementById("submit").addEventListener("click", function () {
               ).then((response) => {
                 response.json();
               });
-              var person = prompt(
-                "Please enter the type of room\npro - For modern devices with fast internet\nlite - For old devices with poor interent",
-                "pro"
-              );
-              if (person == "pro") {
-                window.location.replace(
-                  "https://class.frat.team?c=" +
-                    localStorage.className +
-                    "&r=" +
-                    localStorage.roomID +
-                    "&w=" +
-                    localStorage.whiteboard +
-                    "&j=" +
-                    localStorage.jitsi +
-                    "&u=" +
-                    localStorage.username +
-                    "&roll=" +
-                    localStorage.roll
-                );
-              } else if (person == "lite") {
-                window.location.replace("/studentLiteRoom");
-              }
+              window.location.replace("/joinSelect");
+
             } else {
               errorSnack = "Room is closed. Contact your teacher for entry.";
               document.getElementById("demo-show-snackbar").click();
