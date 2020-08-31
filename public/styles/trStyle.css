@@ -1,19 +1,20 @@
-html, body, .page {
+html,
+body,
+.page {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  transition: all .6s cubic-bezier(.5, .2, .2, 1.1);
-  -webkit-transition: all .6s cubic-bezier(.5, .2, .2, 1.1);
-  -moz-transition: all .6s cubic-bezier(.5, .2, .2, 1.1);
-  -o-transition: all .6s cubic-bezier(.5, .2, .2, 1.1);  
+  transition: all 0.6s cubic-bezier(0.5, 0.2, 0.2, 1.1);
+  -webkit-transition: all 0.6s cubic-bezier(0.5, 0.2, 0.2, 1.1);
+  -moz-transition: all 0.6s cubic-bezier(0.5, 0.2, 0.2, 1.1);
+  -o-transition: all 0.6s cubic-bezier(0.5, 0.2, 0.2, 1.1);
   color: #fff;
-  overflow: hidden !important; 
-  
+  overflow: hidden !important;
 }
 
 * {
-  font-family: 'open sans', 'lato', 'helvetica', sans-serif;
+  font-family: "open sans", "lato", "helvetica", sans-serif;
 }
 
 .page {
@@ -24,15 +25,28 @@ html, body, .page {
   left: 0;
 }
 
-#p2, #p3, #p4, #p5 {
+#p2,
+#p3,
+#p4,
+#p5 {
   left: 200%;
 }
 
-#p1 { background: indigo; }
-#p2 { background: indigo; }
-#p3 { background: white; }
-#p4 { background: indigo; }
-#p5 { background: indigo; }
+#p1 {
+  background: indigo;
+}
+#p2 {
+  background: indigo;
+}
+#p3 {
+  background: white;
+}
+#p4 {
+  background: indigo;
+}
+#p5 {
+  background: indigo;
+}
 
 #t2:target #p2,
 #t3:target #p3,
@@ -42,17 +56,17 @@ html, body, .page {
   -webkit-transform: translateX(-190%);
   -moz-transform: translateX(-190%);
   -o-transform: translateX(-190%);
-  transition-delay: .4s !important;
+  transition-delay: 0.4s !important;
 }
 
-#t2:target #p1, 
+#t2:target #p1,
 #t3:target #p1,
 #t4:target #p1,
-#t5:target #p1{
+#t5:target #p1 {
   background: black;
 }
 
-#t2:target #p1 .icon, 
+#t2:target #p1 .icon,
 #t3:target #p1 .icon,
 #t4:target #p1 .icon,
 #t5:target #p1 .icon {
@@ -77,12 +91,12 @@ ul .icon:hover {
 #t2:target ul .icon,
 #t3:target ul .icon,
 #t4:target ul .icon,
-#t5:target ul .icon{
-  transform: scale(.6);
-  -webkit-transform: scale(.6);
-  -moz-transform: scale(.6);
-  -o-transform: scale(.6);
-  transition-delay: .25s;
+#t5:target ul .icon {
+  transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  transition-delay: 0.25s;
 }
 
 #t2:target #dos,
@@ -97,63 +111,55 @@ ul .icon:hover {
 
 ul {
   position: fixed;
-  z-index: 1000000;
+  z-index: 1;
   top: 0;
   bottom: 0;
   left: 0;
-  margin: 0px;
+  margin: auto;
   height: 280px;
-  width: 10%;
+  width: 5%;
   padding: 0;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
- }
+  text-align: center;
+}
 
 @media only screen and (max-width: 600px) {
   ul {
     position: fixed;
-    z-index: 100000000;
-    top: 10%;
+    z-index: 1;
+    top: 40%;
     bottom: 0;
     left: 0;
     right: 0px;
     margin: 0px;
     height: 40%;
-    width: 5%;
+    width: 2%;
     padding: 0;
     text-align: center;
-   }
-   #menu .icon {
-    margin: 30px 10px 0px 0px ;
-    transition: all .5s ease-out !important;
-    -webkit-transition: all .5s ease-out;
-    -moz-transition: all .5s ease-out;
-    -o-transition: all .5s ease-out;
   }
-  
+  #menu .icon {
+    margin: 30px 10px 0px 0px;
+    transition: all 0.5s ease-out !important;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+  }
 }
 
 @media only screen and (min-width: 600px) {
-  ul{
-    margin-top: 72px;
-
-  }
   #menu .icon {
-    margin: 30px 0px;
-    margin-left: 27px;
-    margin-right: 0px;
-    transition: all .5s ease-out !important;
-  -webkit-transition: all .5s ease-out;
-  -moz-transition: all .5s ease-out;
-  -o-transition: all .5s ease-out;
-  }  
+    margin: 30px 50px;
+    transition: all 0.5s ease-out !important;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+  }
 }
 a {
   text-decoration: none;
 }
 
-.title, .hint {
+.title,
+.hint {
   display: block;
 }
 
@@ -178,7 +184,7 @@ a {
 }
 
 .hint a:hover {
-  color: #FFF;
+  color: #fff;
 }
 
 .line-trough {
@@ -201,10 +207,10 @@ a {
   -webkit-transform: translateX(360%);
   -moz-transform: translateX(360%);
   -o-transform: translateX(360%);
-  transition: all .5s cubic-bezier(.25, 1, .5, 1.25);
-  -webkit-transition: all .5s cubic-bezier(.25, 1, .5, 1.25);
-  -moz-transition: all .5s cubic-bezier(.25, 1, .5, 1.25);
-  -o-transition: all .5s cubic-bezier(.25, 1, .5, 1.25);
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1.25);
+  -webkit-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1.25);
+  -moz-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1.25);
+  -o-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1.25);
 }
 
 .page#p1 .icon {

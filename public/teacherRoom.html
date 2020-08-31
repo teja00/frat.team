@@ -16,10 +16,173 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <style>
+        #content {
+            min-height: 100vh;
+            font-family: Roboto, Arial;
+            color: #ADAFB6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(249, 251, 255, 0.6);
+        }
+
+        .boxes {
+            height: 32px;
+            width: 32px;
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            margin-top: 32px;
+            -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+            transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+        }
+
+        .boxes .box {
+            width: 32px;
+            height: 32px;
+            top: 0px;
+            left: 0;
+            position: absolute;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+
+
+        .boxes .box:nth-child(1) {
+            -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+            -webkit-animation: box1 1s linear infinite;
+            animation: box1 1s linear infinite;
+        }
+
+        .boxes .box:nth-child(2) {
+            -webkit-transform: translate(0, 100%);
+            transform: translate(0, 100%);
+            -webkit-animation: box2 1s linear infinite;
+            animation: box2 1s linear infinite;
+        }
+
+        .boxes .box:nth-child(3) {
+            -webkit-transform: translate(100%, 100%);
+            transform: translate(100%, 100%);
+            -webkit-animation: box3 1s linear infinite;
+            animation: box3 1s linear infinite;
+        }
+
+        .boxes .box:nth-child(4) {
+            -webkit-transform: translate(200%, 0);
+            transform: translate(200%, 0);
+            -webkit-animation: box4 1s linear infinite;
+            animation: box4 1s linear infinite;
+        }
+
+
+
+        .boxes .box>div {
+            background: #5C8DF6;
+            --translateZ: 15.5px;
+            --rotateY: 0deg;
+            --rotateX: 0deg;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #5C8DF6;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left: auto;
+            -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+            transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+        }
+
+        .boxes .box>div:nth-child(1) {
+            top: 0;
+            left: 0;
+            background: #5C8DF6;
+        }
+
+        .boxes .box>div:nth-child(2) {
+            background: #145af2;
+            right: 0;
+            --rotateY: 90deg;
+        }
+
+        .boxes .box>div:nth-child(3) {
+            background: #447cf5;
+            --rotateX: -90deg;
+        }
+
+        .boxes .box>div:nth-child(4) {
+            background: #DBE3F4;
+            top: 0;
+            left: 0;
+            --translateZ: -90px;
+        }
+
+
+
+
+
+        @keyframes box1 {
+
+            0%,
+            50% {
+                transform: translate(100%, 0);
+            }
+
+            100% {
+                transform: translate(200%, 0);
+            }
+        }
+
+        @keyframes box2 {
+            0% {
+                transform: translate(0, 100%);
+            }
+
+            50% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(100%, 0);
+            }
+        }
+
+        @keyframes box3 {
+
+            0%,
+            50% {
+                transform: translate(100%, 100%);
+            }
+
+            100% {
+                transform: translate(0, 100%);
+            }
+        }
+
+        @keyframes box4 {
+            0% {
+                transform: translate(200%, 0);
+            }
+
+            50% {
+                transform: translate(200%, 100%);
+            }
+
+            100% {
+                transform: translate(100%, 100%);
+            }
+        }
+
         .title {
             font-family: "Bungee Inline", Arial, Helvetica, sans-serif;
         }
-        .box {
+
+        .boxe {
             width: 120px;
             height: 30px;
             border: 1px solid #999;
@@ -30,21 +193,119 @@
         }
 
         .viewSource {
-            position: fixed;
             left: 0;
             top: 0;
             display: none;
             margin-left: 7px;
             margin-top: 7px;
-            z-index: 900;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
         }
     </style>
 
 </head>
 
 <body>
+    <div id="content">
+        <div id="boxes" class="boxes">
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- partial:index.partial.html -->
-    <div class="ct" id="t1">
+    <div style="display: none;" class="ct" id="t1">
         <div class="ct" id="t2">
             <div class="ct" id="t3">
                 <div class="ct" id="t4">
@@ -65,7 +326,7 @@
                         <div class="page" id="p1">
                             <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">India's
                                     first 3D virtual classroom <br> with smart attendance, on the fly quizzes and shared
-                                    whiteboard<br><br><br><button class="box" onclick="leaveClassFunction()">Leave
+                                    whiteboard<br><br><br><button class="boxe" onclick="leaveClassFunction()">Leave
                                         class</button></span></section>
 
                         </div>
@@ -99,7 +360,7 @@
                                                     allowed.</span>
                                             </span>
                                             <span class="mdl-list__item-secondary-action">
-                                                <select class="box" id="professsion" name="quiz"
+                                                <select class="boxe" id="professsion" name="quiz"
                                                     onchange="conductQuizFunction()">
                                                     <option value=""></option>
                                                 </select>
@@ -107,7 +368,7 @@
                                         </li>
                                         <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
                                             <span class="mdl-list__item-primary-content">
-                                                <i class="material-icons  mdl-list__item-icon">lock</i>
+                                                <i class="material-icons  mdl-list__item-icon">person_add_disabled</i>
                                                 <span>Close room</span>
                                                 <span class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">No
                                                     new participants will be
@@ -119,6 +380,42 @@
                                                     <input type="checkbox" id="list-switch-1" class="mdl-switch__input"
                                                         id="closeRoom" onclick="closeRoomFunction()" />
                                                 </label>
+                                            </span>
+                                        </li>
+                                        <li id="view-source1"
+                                            class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
+                                            <span class="mdl-list__item-primary-content">
+                                                <i class="material-icons  mdl-list__item-icon">cast_for_education</i>
+                                                <span>Start class</span>
+                                                <span
+                                                    class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">Starts
+                                                    observing students attention</span>
+                                            </span>
+                                            <span class="mdl-list__item-secondary-action">
+                                                <button
+                                                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                                    onclick="startClassFunction()">
+                                                    <i class="material-icons">check</i>
+                                                </button>
+
+                                            </span>
+                                        </li>
+                                        <li id="view-source2"
+                                            class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
+                                            <span class="mdl-list__item-primary-content">
+                                                <i class="material-icons  mdl-list__item-icon">cast_for_education</i>
+                                                <span>Stop class</span>
+                                                <span
+                                                    class="mdl-list__item-sub-title mdl-color-text--blue-grey-100">Stop
+                                                    observing students attention</span>
+                                            </span>
+                                            <span class="mdl-list__item-secondary-action">
+                                                <button
+                                                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                                    onclick="stopClassFunction()">
+                                                    <i class="material-icons">check</i>
+                                                </button>
+
                                             </span>
                                         </li>
                                         <li class="mdl-list__item mdl-list__item--two-line mdl-color-text--white">
@@ -137,7 +434,7 @@
                                                 <button
                                                     class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
                                                     onclick="attendanceFunction()">
-                                                    <i class="material-icons">check</i>
+                                                    <i class="material-icons">groups</i>
                                                 </button>
 
                                             </span>
@@ -151,20 +448,53 @@
             </div>
         </div>
     </div>
-
-    <a id="view-source1"
-        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white viewSource"
-        onclick="startClassFunction()">Start class</a>
-    <a id="view-source2"
-        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white viewSource"
-        onclick="stopClassFunction()">Stop class</a>
+    <div id="timeInSeconds" style="display: none;"></div>
+    <div id="snackbar">Some text some message..</div>
 </body>
 <script src='https://meet.jit.si/external_api.js'></script>
+
 <script src="/__/firebase/7.17.1/firebase-app.js"></script>
 <script src="/__/firebase/7.17.1/firebase-firestore.js"></script>
 <script src="/__/firebase/7.17.1/firebase-auth.js"></script>
 <script src="/__/firebase/init.js"></script>
+<script src="./scripts/timeme.min.js"></script>
 <script>
+    function mySnackbarFunction(notice) {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        x.innerHTML = notice;
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+    TimeMe.initialize({
+        currentPageName: "my-home-page", // current page
+    });
+    TimeMe.callAfterTimeElapsedInSeconds(420, function () {
+        console.log("The user has been using the page for 4 seconds! Let's prompt them with something.");
+        errorSnack = "Start the class to enable smart attendance";
+        mySnackbarFunction(errorSnack)
+    });
+    TimeMe.callAfterTimeElapsedInSeconds(3000, function () {
+        console.log("The user has been using the page for 9 seconds! Let's prompt them with something.");
+        errorSnack = "Stop the class and collect attendance.<br>10 minutes remaining!";
+        mySnackbarFunction(errorSnack)
+    });
+    TimeMe.callAfterTimeElapsedInSeconds(3300, function () {
+        console.log("The user has been using the page for 9 seconds! Let's prompt them with something.");
+        errorSnack = "5 minutes remaining!";
+        mySnackbarFunction(errorSnack)
+    });
+
+    window.onload = function () {
+        document.getElementById("t1").style.display = "block";
+        document.getElementById("boxes").style.display = "none";
+        document.location.hash = '#p1';
+        TimeMe.trackTimeOnElement('area-of-interest-1');
+        TimeMe.trackTimeOnElement('area-of-interest-2');
+        setInterval(function () {
+            var timeSpentOnPage = TimeMe.getTimeOnCurrentPageInSeconds();
+            document.getElementById('timeInSeconds').textContent = timeSpentOnPage.toFixed(2);
+        }, 25);
+    }
     function tejaFuckedUp() {
         document.getElementById("tejaFuckedUpID").style.display = "none"
     }
@@ -211,11 +541,11 @@
                 if (startClass === false) {
                     console.log("class not started")
                     document.getElementById("view-source2").style.display = "none"
-                    document.getElementById("view-source1").style.display = "block"
+                    document.getElementById("view-source1").style.display = "flex"
                 } else if (startClass === true) {
                     console.log("class started")
                     document.getElementById("view-source1").style.display = "none"
-                    document.getElementById("view-source2").style.display = "block"
+                    document.getElementById("view-source2").style.display = "flex"
                 }
             } catch (e) {
                 console.log("not yet")

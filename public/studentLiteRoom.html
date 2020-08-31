@@ -17,6 +17,168 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 <style>
+    #content {
+        min-height: 100vh;
+        font-family: Roboto, Arial;
+        color: #ADAFB6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(249, 251, 255, 0.6);
+    }
+
+    .boxes {
+        height: 32px;
+        width: 32px;
+        position: relative;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        margin-top: 32px;
+        -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+        transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+    }
+
+    .boxes .box {
+        width: 32px;
+        height: 32px;
+        top: 0px;
+        left: 0;
+        position: absolute;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+
+
+    .boxes .box:nth-child(1) {
+        -webkit-transform: translate(100%, 0);
+        transform: translate(100%, 0);
+        -webkit-animation: box1 1s linear infinite;
+        animation: box1 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(2) {
+        -webkit-transform: translate(0, 100%);
+        transform: translate(0, 100%);
+        -webkit-animation: box2 1s linear infinite;
+        animation: box2 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(3) {
+        -webkit-transform: translate(100%, 100%);
+        transform: translate(100%, 100%);
+        -webkit-animation: box3 1s linear infinite;
+        animation: box3 1s linear infinite;
+    }
+
+    .boxes .box:nth-child(4) {
+        -webkit-transform: translate(200%, 0);
+        transform: translate(200%, 0);
+        -webkit-animation: box4 1s linear infinite;
+        animation: box4 1s linear infinite;
+    }
+
+
+
+    .boxes .box>div {
+        background: #5C8DF6;
+        --translateZ: 15.5px;
+        --rotateY: 0deg;
+        --rotateX: 0deg;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #5C8DF6;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+        transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+    }
+
+    .boxes .box>div:nth-child(1) {
+        top: 0;
+        left: 0;
+        background: #5C8DF6;
+    }
+
+    .boxes .box>div:nth-child(2) {
+        background: #145af2;
+        right: 0;
+        --rotateY: 90deg;
+    }
+
+    .boxes .box>div:nth-child(3) {
+        background: #447cf5;
+        --rotateX: -90deg;
+    }
+
+    .boxes .box>div:nth-child(4) {
+        background: #DBE3F4;
+        top: 0;
+        left: 0;
+        --translateZ: -90px;
+    }
+
+
+
+
+
+    @keyframes box1 {
+
+        0%,
+        50% {
+            transform: translate(100%, 0);
+        }
+
+        100% {
+            transform: translate(200%, 0);
+        }
+    }
+
+    @keyframes box2 {
+        0% {
+            transform: translate(0, 100%);
+        }
+
+        50% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(100%, 0);
+        }
+    }
+
+    @keyframes box3 {
+
+        0%,
+        50% {
+            transform: translate(100%, 100%);
+        }
+
+        100% {
+            transform: translate(0, 100%);
+        }
+    }
+
+    @keyframes box4 {
+        0% {
+            transform: translate(200%, 0);
+        }
+
+        50% {
+            transform: translate(200%, 100%);
+        }
+
+        100% {
+            transform: translate(100%, 100%);
+        }
+    }
+
     body {
         background: #ECEFF1;
         color: rgba(0, 0, 0, 0.87);
@@ -51,52 +213,84 @@
     }
 </style>
 
-<body>
+<body onload="myFunction()">
+
+    <div id="content">
+        <div id="boxes" class="boxes">
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Simple header with fixed tabs. -->
-    <div class="ct" id="t1">
+    <div style="display: none;" class="ct" id="t1">
         <div class="ct" id="t2">
-          <div class="ct" id="t3">
-            <div class="ct" id="t4">
-              <div class="ct" id="t5">
-                <ul id="menu">
-                    <a href="#t1">
-                        <li class="icon fa fa-home fa-2x" id="uno"></li>
-                    </a>
-                    <a href="#t2">
-                        <li class="icon fa fa-video-camera fa-2x" id="dos"></li>
-                    </a>
-                    <a href="#t3">
-                        <li class="icon fa fa-square fa-2x" id="tres"></li>
-                    </a>
-                </ul>
-                <div class="page" id="p1">
-                    <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">India's
-                            first 3D virtual classroom <br> with smart attendance, on the fly quizzes and shared
-                            whiteboard</span></section>
-                </div>
-                <div class="page mdl-grid" id="p2">
-                    <div id="meet"
+            <div class="ct" id="t3">
+                <div class="ct" id="t4">
+                    <div class="ct" id="t5">
+                        <ul id="menu">
+                            <a href="#t1">
+                                <li class="icon fa fa-home fa-2x" id="uno"></li>
+                            </a>
+                            <a href="#t2">
+                                <li class="icon fa fa-video-camera fa-2x" id="dos"></li>
+                            </a>
+                            <a href="#t3">
+                                <li class="icon fa fa-square fa-2x" id="tres"></li>
+                            </a>
+                        </ul>
+                        <div class="page" id="p1">
+                            <section class="icon fa fa-book"><span class="title">FRAT</span><span class="hint">India's
+                                    first 3D virtual classroom <br> with smart attendance, on the fly quizzes and shared
+                                    whiteboard</span></section>
+                        </div>
+                        <div class="page mdl-grid" id="p2">
+                            <div id="meet"
                                 class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
                                 style="padding: 0%;margin: 0%;"></div>
                         </div>
-                </div>
-                <div class="page mdl-grid" id="p3">
-                    <div id="whiteboard"
-                                class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
-                                style="padding: 0%;margin: 0%;"></div>
-                    <div class="overlay" id="overlay"></div>
+                    </div>
+                    <div class="page mdl-grid" id="p3">
+                        <div id="whiteboard"
+                            class="mdl-cell mdl-cell--11-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone"
+                            style="padding: 0%;margin: 0%;"></div>
+                        <div class="overlay" id="overlay"></div>
 
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+    </div>
     <a target="_blank" id="view-source"
         class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--white viewSource"
         onclick="hideQuizButton()">Quiz</a>
     <video id="player" controls autoplay style="display: none;"></video>
     <canvas id="canvas" width=320 height=240 style="display: none;"></canvas>
+    <script>!function () { var e = document.createElement("script"), t = document.getElementsByTagName("script")[0]; e.async = 1, e.src = "https://inlinemanual.com/embed/player.96a87ad45fc1b23555853c735b3f5cd1.js", e.charset = "UTF-8", t.parentNode.insertBefore(e, t) }();</script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
@@ -107,6 +301,12 @@
 <script src="/__/firebase/7.17.1/firebase-auth.js"></script>
 <script src="/__/firebase/init.js"></script>
 <script>
+    function myFunction() {
+        document.getElementById("t1").style.display = "block";
+        document.getElementById("boxes").style.display = "none";
+        document.location.hash = '#t1';
+
+    }
     var USER_CRED, quizFormBit, attIntervalListener
     var reloadBit = "none"
     var db = firebase.firestore();
@@ -281,7 +481,7 @@ if(test != undefined) {
     navigator.mediaDevices.getUserMedia(constraints)
         .then((stream) => {
             player.srcObject = stream;
-        }).catch(e=>{
+        }).catch(e => {
             console.log("Can't access camera bro")
         });
     async function main() {
@@ -328,5 +528,6 @@ if(test != undefined) {
         }
     }
 </script>
+
 
 </html>
