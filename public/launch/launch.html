@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Exploding 3D Objects | Demo 1 | Codrops</title>
+	<meta name="description" content="An exploding objects effect made with three.js." />
+	<meta name="keywords" content="webgl, three.js, 3d, objects, exploding, shatter, fragment, animation, template, javascript" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="https://use.typekit.net/ldt4auk.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700" />
+	<link rel="stylesheet" href="https://raubarrera.neocities.org/cdpn/style.css" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script>document.documentElement.className = "js"; var supportsCssVars = function () { var e, t = document.createElement("style"); return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e }; supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+</head>
+
+<body class="demo-4">
+	<div id="content-form">
+		<section id="cart-section">
+			<div class="container">
+				<div class="row">
+					<div class="cart cart3">
+						<div style="z-index: 1;" class="column">
+							<h2 id ="h2" ><span>FRAT</span><span>Launch</span></h2>
+
+							<div onclick="myTeacher()" id="teacher" class="button-area column">
+								<button id = "teach-button" value="teacher" >Teacher</button>
+							</div>
+							<div onclick="myCheckbox()" id="student" class="button-area column">
+								<button id = "student-button" value="student">Student</button>
+							</div>
+							<div class="log-in-area column">
+								<div style="display: none;padding-top: 40px;" id="dopdown">
+									<div class="select">
+										<select name="slct" id="slctyear">
+											<option selected disabled>Year</option>
+											<option value="17">17</option>
+											<option value="18">18</option>
+											<option value="19">19</option>
+										</select>
+									</div>
+									<br/>
+									<div class="select">
+										<select name="slct" id="slctgroup">
+											<option selected disabled>Group</option>
+											<option value="CSE">CSE</option>
+											<option value="EEE">EEE</option>
+											<option value="MECH">MECH</option>
+											<option value="CIVIL">CIVIL</option>
+										</select>
+									</div>
+									<label style ="text-align: center;align-items: center;align-self: center;align-content: center; " class="column" for=""> User
+										<input type="text" id="urname" value="">
+									 </label>
+									 <label style ="text-align: center;align-items: center;align-self: center;align-content: center; " class="column" for=""> Number
+										<input type="text" id="rolno" value="">
+									 </label>
+								</div>
+							</div>
+							<div onclick="myfunc()" style=" text-align: center;align-items: center;align-self: center;align-content: center;display: none;" id="lets" class="button-area column">
+								<button>Let's Go</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<main id="main" style="display: none;">
+		<div id="container"> </div>
+		<div class="frame">
+		</div><!-- /frame -->
+		<div class="content">
+			<div class="content__item">
+				<button id="take" class="content__button">Take me in</button>
+			</div>
+			<div class="content__item content__item--details">
+				<h3 class="content__location">FRAT</h3>
+				<h1  style ="color:white" class="content__title">LAUNCH</h1>
+				<p style ="color:white" class="content__date">July 14 &mdash; 15</p>
+			</div>
+			<div class="content__item content__item--details content__item--columns">
+				<div class="content__inner">
+					<span style ="color:white" class="content__inner-item content__inner-item--date">14</span>
+					<span style ="color:white" class="content__inner-item">DJ Madow</span>
+					<span style ="color:white" class="content__inner-item">Franklin Doe</span>
+					<span style ="color:white" class="content__inner-item">Josh Z</span>
+					<span class="content__inner-item">Stevvy</span>
+					<span class="content__inner-item">Supernova</span>
+					<span class="content__inner-item">Kiz</span>
+					<span class="content__inner-item">BrickX</span>
+					<span class="content__inner-item">Miss Kara</span>
+					<span class="content__inner-item">Beatlove</span>
+					<span class="content__inner-item">DJ Oxymoron</span>
+					<span class="content__inner-item">Couture</span>
+					<span class="content__inner-item">The Wild B</span>
+					<span class="content__inner-item">Honey</span>
+					<span class="content__inner-item">DJ K</span>
+					<span class="content__inner-item">Frankie</span>
+					<span class="content__inner-item">Soundfreak</span>
+					<span class="content__inner-item">Grind</span>
+				</div>
+				<div class="content__inner">
+					<span class="content__inner-item content__inner-item--date">15</span>
+					<span class="content__inner-item">Fan C</span>
+					<span class="content__inner-item">The Kid</span>
+					<span class="content__inner-item">Nelly</span>
+					<span class="content__inner-item">Bubblegum</span>
+					<span class="content__inner-item">Hot Monogram</span>
+					<span class="content__inner-item">DJ Maximus</span>
+					<span class="content__inner-item">Laura Gambler</span>
+					<span class="content__inner-item">Starduust</span>
+					<span class="content__inner-item">General XYZ</span>
+					<span class="content__inner-item">Frank The Tank</span>
+					<span class="content__inner-item">Pestcontrol</span>
+					<span class="content__inner-item">Free Room</span>
+				</div>
+				<div class ="content__inner">
+					<button onclick="studentRedirectBasedOnValuesGiven()" > clickme </button>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="js/brain.js"></script>
+	<script src="js/TweenMax.min.js"></script>
+	<script src="js/charming.min.js"></script>
+	<script src="js/demo4.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script>
+		function myTeacher() {
+			document.getElementById("main").style.display = "block";
+			document.getElementById("content-form").style.display = "none";
+			document.getElementById("take").click();
+			var username = document.getElementById("teach-button").value;
+			if(localStorage)
+			{
+				localStorage.setItem('user',username);
+			}
+			console.log("username is",username);
+		}
+		function myCheckbox() {
+			console.log("student clicked");
+			document.getElementById("teacher").style.display = "none";
+			document.getElementById("student").style.display = "none";
+			document.getElementById("h2").style.display = "none";
+			document.getElementById("dopdown").style.display = "block";
+			document.getElementById("lets").style.display = "block";
+			var username = document.getElementById("student-button").value;
+			if(localStorage)
+			{
+				localStorage.setItem('user',username);
+			}
+			console.log("username is",username);
+		}
+		function myfunc(){
+			console.log("entered");
+			document.getElementById("main").style.display = "block";
+			document.getElementById("content-form").style.display = "none";
+			document.getElementById("take").click();
+			var years = document.getElementById("slctyear");
+			var groups = document.getElementById("slctgroup");
+			var urname = document.getElementById("urname").value;
+			var rolno = document.getElementById("rolno").value;
+			var year = years.value;
+			var group = groups.value;
+			if(localStorage)
+			{
+				localStorage.setItem('year',year);
+				localStorage.setItem('group',group);
+				localStorage.setItem('name',urname);
+				localStorage.setItem('rollno',rolno);
+
+			}
+			console.log("year selected",typeof(year));
+			console.log("group selected",group);
+			console.log("urname filled",urname);
+			console.log("rolno filled",rolno);
+		}
+		
+		setTimeout(studentRedirectBasedOnValuesGiven,20000);
+		
+		function studentRedirectBasedOnValuesGiven(){
+			var user = localStorage.getItem("user");
+			var link;
+			if(user === "student")
+			{
+				var year = localStorage.getItem("year");
+				var group = localStorage.getItem("group");
+				var name = localStorage.getItem("name");
+				var rollno = localStorage.getItem("rollno");
+
+				if(year === "17")
+				{
+					if (group === "CSE")
+					{
+						link = "https://class.frat.team?r=CfitnGFH0U0nsL7ZHShI&c=class&w=0cECn5vzabI3oLp82e4ioOHUFfCgWSxeAvyV5Uluc2H426bK3Zk1BHPwDzs1mp1OFq2I7JmA&j=0cECn5vzabI3oLp82e4ioOHUFfCgWSxeAvyV5Uluc2H426bK3Zk1BHPwDzs1mp1OFq2I7JmA&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+				
+					if (group === "EEE")
+					{
+						link = "https://class.frat.team?r=ZgxtUxOBWl8jro8YjLkn&c=class&w=9E0p6fJCudKXOizyN7mKhibf7MOKQzR3RHE2YsSURqOXvBJmvLwZvjtjGrGnpZ86Trj5MhF7&j=9E0p6fJCudKXOizyN7mKhibf7MOKQzR3RHE2YsSURqOXvBJmvLwZvjtjGrGnpZ86Trj5MhF7&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+					if (group === "CIVIL")
+					{
+						link = "https://class.frat.team?r=b06Qrsk8y52CtQgFG6iB&c=class&w=ASi2tX0DymazRnhquG8n4YxHK6qqrl8haiIympQzZK75QLLhS8HI2HgQo8V7lTGX3eiYI8vq&j=ASi2tX0DymazRnhquG8n4YxHK6qqrl8haiIympQzZK75QLLhS8HI2HgQo8V7lTGX3eiYI8vq&u="+name+"&roll="+rollno;
+						window.location.replace(link);			
+					}
+					if (group === "MECH")
+					{
+						link = "https://class.frat.team?r=zzKYXkNyXe1XDbvVnDze&c=class&w=9J764aGZG4XFtNayfyM7cKzKKCZQY15FyIfIMrA6IqqyXpZ79uilR1dKOJJeNJLEQrnOCqk8&j=9J764aGZG4XFtNayfyM7cKzKKCZQY15FyIfIMrA6IqqyXpZ79uilR1dKOJJeNJLEQrnOCqk8&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+				}
+				if(year === "18")
+				{
+					if (group === "CSE")
+					{
+						link = "https://class.frat.team?r=gmsyuevb09swCcxuYJ8q&c=class&w=bXTlgrpLM6Ah2WX3ObrnA7P3hB48VQDTwrTHJ2Vfb8yQQtyjrLoDD9nCH17WltKC2qD9XnAV&j=bXTlgrpLM6Ah2WX3ObrnA7P3hB48VQDTwrTHJ2Vfb8yQQtyjrLoDD9nCH17WltKC2qD9XnAV&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+					if (group === "EEE")
+					{
+						link = "https://class.frat.team?r=jdC8xdX2JYMyJLgQVKOq&c=class&w=AI8n2ZO3GO4YHRbwgvYWq8LmTjnCwuTDpyIMMKgxU1Wcb4Y8NEW8qwGJ237gScdq1OqyehgO&j=AI8n2ZO3GO4YHRbwgvYWq8LmTjnCwuTDpyIMMKgxU1Wcb4Y8NEW8qwGJ237gScdq1OqyehgO&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+					if (group === "CIVIL")
+					{
+						link = "https://class.frat.team?r=uQ1nL5aEPC9TzyBhXzUR&c=class&w=9s9aZqhlSq8OoztVDWC4lOg45EYlTE9MrPsqSKNN62Ni8ynV3KSSYMWiJAEFonmKC53q5ApV&j=9s9aZqhlSq8OoztVDWC4lOg45EYlTE9MrPsqSKNN62Ni8ynV3KSSYMWiJAEFonmKC53q5ApV&u="+name+"&roll="+rollno;
+						window.location.replace(link);			
+					}
+					if (group === "MECH")
+					{
+						link = "https://class.frat.team?r=ogqOE0TR7xJZF8wm4Eg1&c=class&w=EmAqDEQzURGIrcRONGoZ0TZitTSybgEzJCfJ5H1PgoflQUI2ohXycal5xsnUU6w8ZZ4ThPQj&j=EmAqDEQzURGIrcRONGoZ0TZitTSybgEzJCfJ5H1PgoflQUI2ohXycal5xsnUU6w8ZZ4ThPQj&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+				}
+				
+				if(year === "19")
+				{
+					if (group === "CSE")
+					{
+						link = "https://class.frat.team?r=jkKHvIwcOqzfcROT62xF&c=class&w=K8fYGLAT8GtR1jwCMYqlItJiociiYfVeZqOuAURroJ2JLoznd6MNT6JrJuG70jTobjOjvqws&j=K8fYGLAT8GtR1jwCMYqlItJiociiYfVeZqOuAURroJ2JLoznd6MNT6JrJuG70jTobjOjvqws&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+					if (group === "EEE")
+					{
+						link ="https://class.frat.team?r=yAbzUQSAiNXl1YslKbTS&c=class&w=6dBVh7lYnaCpw8iT9LmW1kgBL8E5O9Th06x5p0jxx7ex4qNnQYbVDTy8OZOH594IBaBd02gS&j=6dBVh7lYnaCpw8iT9LmW1kgBL8E5O9Th06x5p0jxx7ex4qNnQYbVDTy8OZOH594IBaBd02gS&u="+name+"&roll="+rollno;
+						window.location.replace(link);
+					}
+					if (group === "CIVIL")
+					{
+						link = "https://class.frat.team?r=yzzrjTSSCFveNyE0VZ7n&c=class&w=FDLlYoBkYxWO8eFRIt2nZqFSv0L0XPLoTHkwAyHZcMdRw8EGa3C5st0INBg0K6LEUIciZu1F&j=FDLlYoBkYxWO8eFRIt2nZqFSv0L0XPLoTHkwAyHZcMdRw8EGa3C5st0INBg0K6LEUIciZu1F&u="+name+"&roll="+rollno;
+						window.location.replace(link);			
+					}
+					if (group === "MECH")
+					{
+						link = "https://class.frat.team?r=vXtFGvwXbq9H7aXFSzIt&c=class&w=FDLlYoBkYxWO8eFRIt2nZqFSv0L0XPLoTHkwAyHZcMdRw8EGa3C5st0INBg0K6LEUIciZu1F&j=FDLlYoBkYxWO8eFRIt2nZqFSv0L0XPLoTHkwAyHZcMdRw8EGa3C5st0INBg0K6LEUIciZu1F&u="+name+"&roll="+rollno;
+						window.location.replace(link);			
+					}
+				}
+			}
+			
+		}
+	</script>
+</body>
+
+</html>
