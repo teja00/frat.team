@@ -11,6 +11,10 @@ firebase.auth().onAuthStateChanged(function (user) {
     document.getElementById("displayName").innerHTML = user.displayName;
     document.getElementById("email").innerHTML = user.email;
     document.getElementById("picture").src = user.photoURL;
+    if(user.photoURL === null)
+    {
+      document.getElementById("picture").src = "https://firebasestorage.googleapis.com/v0/b/fir-rtc-926a7.appspot.com/o/android-chrome-512x512.png?alt=media&token=cc236036-8d62-4228-ae99-cd45ee44a7c5";
+    }
     //email = user.email;
     //photoUrl = user.photoURL;;
     var docRef = db
@@ -23,7 +27,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         //console.log(querySnapshot.docs)
         if (querySnapshot.docs.length === 0) {
           document.getElementById("classLoad").innerText =
-            "Create a classroom to get started!";
+            " ";
         }
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots

@@ -42,7 +42,7 @@ Vue.component('countdown', {
   
  data() {
    return{
-     deadline: 'Sept 15, 2020 08:00:00',
+     deadline: 'Sept 15, 2020 16:30:00',
      days: 'HI',
      hours: 'TH',
      minutes: 'ER',

@@ -58,7 +58,21 @@
           signInSuccessWithAuthResult: function (authResult, redirectUrl) {
             document.getElementById("loader").style.display = "block";
 
-            console.log("auth completed")
+            console.log("auth completed",authResult,authResult.user.displayName,authResult.user.email);
+            if(authResult.additionalUserInfo.providerId === "password")
+            {
+              var requestEmail = {
+              profile: {
+                email: authResult.user.email,
+                name :authResult.user.displayName,
+                picture: "https://firebasestorage.googleapis.com/v0/b/fir-rtc-926a7.appspot.com/o/android-chrome-512x512.png?alt=media&token=cc236036-8d62-4228-ae99-cd45ee44a7c5",
+              },
+              isNewUser: authResult.additionalUserInfo.isNewUser,
+            }
+            }
+            else{
+              var requestEmail = authResult.additionalUserInfo;
+            }
             //alert("Hello")
             fetch(
               "https://asia-south1-fir-rtc-926a7.cloudfunctions.net/widgets/signup",
@@ -67,7 +81,7 @@
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(authResult.additionalUserInfo),
+                body: JSON.stringify(requestEmail),
               }
             )
               .then(response => response.json())
@@ -82,7 +96,8 @@
               }
 
               ).catch((error) => {
-                alert("Error: Creating account - Contact us");
+                console.log("Error: Creating account - Contact us",error);
+                alert("Error: Creating account - Contact us",error);
                 window.location.replace("/404.html");
 
               });
@@ -100,6 +115,9 @@
           {
             provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
             // Required to enable ID token "credentials" for this provider.
+          },
+          {
+            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
           },
         ],
         // Terms of service url.
